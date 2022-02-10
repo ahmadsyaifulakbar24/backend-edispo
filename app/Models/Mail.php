@@ -15,6 +15,8 @@ class Mail extends Model
 
     protected $fillable = [
         'user_id',
+        'agenda_number',
+        'mail_number',
         'mail_origin',
         'regarding',
         'mail_date',
@@ -23,5 +25,14 @@ class Mail extends Model
         'mail_nature'
     ];
 
+    protected $hidden = [
+        'agenda_number'
+    ];
+
     protected $dates = ['deleted_at'];
+
+    public function file_manager () 
+    {
+        return $this->hasMany(FileManager::class, 'mail_id');
+    }
 }

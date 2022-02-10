@@ -16,6 +16,8 @@ class CreateMailsTable extends Migration
         Schema::create('mails', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained('users')->onUpdate('cascade');
+            $table->integer('agenda_number');
+            $table->integer('mail_number');
             $table->string('mail_origin');
             $table->string('regarding');
             $table->string('mail_date');

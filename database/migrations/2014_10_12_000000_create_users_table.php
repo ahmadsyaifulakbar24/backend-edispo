@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('nip')->nullable();
-            $table->enum('gender', ['laki-laki','perempuan']);
+            $table->enum('gender', ['laki-laki','perempuan'])->nullable();
             $table->string('phone_number')->nullable();
             $table->uuid('position_id')->nullable();
             $table->string('position_name');
