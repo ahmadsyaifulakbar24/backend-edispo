@@ -2,10 +2,9 @@
 
 namespace App\Http\Resources\DispositionAssigment;
 
-use App\Http\Resources\MailDisposition\MailDispositionResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class DispositionAssigmentResource extends JsonResource
+class SimpleDispositionAssigmentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,7 +16,8 @@ class DispositionAssigmentResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'mail_disposition' => new MailDispositionResource($this->mail_disposition),
+            'sender_id' => $this->sender_id,
+            'receiver_id' => $this->receiver_id,
         ];
     }
 }

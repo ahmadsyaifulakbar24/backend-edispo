@@ -22,6 +22,7 @@ class CreateViewTable extends Migration
                 a.mail_disposition_id,
                 a.sender_id,
                 a.receiver_id,
+                a.activity_log_id,
                 a.read,
                 a.created_at,
                 a.updated_at,

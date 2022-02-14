@@ -16,6 +16,16 @@ class MailDisposition extends Model
         'mail_security_id',
     ];
 
+    public function mail ()
+    {
+        return $this->belongsTo(Mail::class, 'mail_id');
+    }
+
+    public function mail_security()
+    {
+        return $this->belongsTo(Param::class, 'mail_security_id');
+    }
+
     public function disposition_instruction()
     {
         return $this->hasMany(DispositionInstruction::class, 'mail_disposition_id');
