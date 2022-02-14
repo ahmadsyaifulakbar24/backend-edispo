@@ -30,6 +30,7 @@ class UpdateMailController extends Controller
                     $query->where('category', 'mail_nature');
                 })
             ],
+            's1ummary' => ['required', 'string']
         ]);
 
         $input['mail_number'] = $request->mail_number;

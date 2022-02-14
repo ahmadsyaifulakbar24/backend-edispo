@@ -7,6 +7,8 @@ use App\Http\Controllers\API\Mail\CreateMailController;
 use App\Http\Controllers\API\Mail\DeleteMailController;
 use App\Http\Controllers\API\Mail\GetMailController;
 use App\Http\Controllers\API\Mail\UpdateMailController;
+use App\Http\Controllers\API\MailDisposition\CreateMailDispositionController;
+use App\Http\Controllers\API\MailDisposition\GetMailDispositionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -39,5 +41,11 @@ Route::middleware(['auth:api'])->group(function() {
         Route::post('/', CreateMailController::class);
         Route::put('/{mail:id}', [UpdateMailController::class, 'update']);
         Route::delete('/{mail:id}', DeleteMailController::class);
+    });
+
+    Route::prefix('mail_disposition')->group(function () {
+        Route::post('/', CreateMailDispositionController::class);
+        Route::get('/incoming_disposition', [GetMailDispositionController::class, 'incoming_disposition']);
+        Route::get('/out_disposition', [GetMailDispositionController::class, 'out_disposition']);
     });
 });

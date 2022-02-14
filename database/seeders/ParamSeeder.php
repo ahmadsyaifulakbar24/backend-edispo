@@ -109,5 +109,23 @@ class ParamSeeder extends Seeder
             'category' => 'instruction',
             'param' => 'Koordinasi',
         ]);
+
+        Param::create([
+            'id' => '1763fa06-7a28-43ca-862d-539a476f3d2f',
+            'category' => 'mail_security',
+            'param' => 'Biasa',
+        ]);
+
+        Param::create([
+            'id' => '30e22ea6-e6bd-454b-88b4-f555f00f1737',
+            'category' => 'mail_security',
+            'param' => 'Rahasia',
+        ]);
+
+        Param::create([
+            'id' => '3780ca68-ff4b-4c8f-a300-08bc63ed69bc',
+            'category' => 'mail_security',
+            'param' => 'Terbatas',
+        ]);
     }
 }

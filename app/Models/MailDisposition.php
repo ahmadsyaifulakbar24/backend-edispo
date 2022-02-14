@@ -15,4 +15,14 @@ class MailDisposition extends Model
         'description',
         'mail_security_id',
     ];
+
+    public function disposition_instruction()
+    {
+        return $this->hasMany(DispositionInstruction::class, 'mail_disposition_id');
+    }
+
+    public function disposition_assigment()
+    {
+        return $this->hasMany(DispositionAssigment::class, 'mail_disposition_id');
+    }
 }

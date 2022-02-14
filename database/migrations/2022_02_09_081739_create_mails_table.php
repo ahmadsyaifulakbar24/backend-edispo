@@ -17,13 +17,14 @@ class CreateMailsTable extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained('users')->onUpdate('cascade');
             $table->integer('agenda_number');
-            $table->integer('mail_number');
+            $table->string('mail_number');
             $table->string('mail_origin');
             $table->string('regarding');
             $table->string('mail_date');
             $table->enum('mail_category', ['incoming_mail', 'official_memo']);
             $table->foreignUuid('mail_type')->nullable()->constrained('params')->onUpdate('cascade');
             $table->foreignUuid('mail_nature')->nullable()->constrained('params')->onUpdate('cascade');
+            $table->string('summary');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -33,6 +33,7 @@ class CreateMailController extends Controller
                     $query->where('category', 'mail_nature');
                 })
             ],
+            'summary' => ['required', 'string'],
             'addition' => ['required', 'array'],
             'addition.*.file' => ['required', 'file'],
         ]);
@@ -40,6 +41,7 @@ class CreateMailController extends Controller
         $input = $request->all();
         $user = $request->user();
         $input['user_id'] = ($user->role == 'assistent') ? $user->parent_id : $user->id;
+        
         $input['agenda_number'] = $this->max_agenda_number();
         $mail = Mail::create($input);
 

@@ -22,11 +22,8 @@ class Mail extends Model
         'mail_date',
         'mail_category',
         'mail_type',
-        'mail_nature'
-    ];
-
-    protected $hidden = [
-        'agenda_number'
+        'mail_nature',
+        'summary'
     ];
 
     protected $dates = ['deleted_at'];
@@ -34,5 +31,10 @@ class Mail extends Model
     public function file_manager () 
     {
         return $this->hasMany(FileManager::class, 'mail_id');
+    }
+
+    public function mail_disposition()
+    {
+        return $this->hasMany(MailDisposition::class, 'mail_id');
     }
 }
