@@ -14,6 +14,7 @@ class DispositionAssigment extends Model
         'mail_disposition_id',
         'sender_id',
         'receiver_id',
-        'read'
+        'read',
+        'activity_log_id'
     ];
 }

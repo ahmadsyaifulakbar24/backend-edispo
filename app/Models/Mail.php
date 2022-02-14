@@ -21,8 +21,8 @@ class Mail extends Model
         'regarding',
         'mail_date',
         'mail_category',
-        'mail_type',
-        'mail_nature',
+        'mail_type_id',
+        'mail_nature_id',
         'summary'
     ];
 
@@ -36,5 +36,25 @@ class Mail extends Model
     public function mail_disposition()
     {
         return $this->hasMany(MailDisposition::class, 'mail_id');
+    }
+
+    public function user ()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function mail_nature ()
+    {
+        return $this->belongsTo(Param::class, 'mail_nature_id');
+    }
+
+    public function mail_type ()
+    {
+        return $this->belongsTo(Param::class, 'mail_type_id');
+    }
+
+    public function activity_log()
+    {
+        return $this->hasMany(ActivityLog::class, 'mail_id');
     }
 }

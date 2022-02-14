@@ -21,13 +21,13 @@ class CreateMailController extends Controller
             'regarding' => ['required', 'string'],
             'mail_date' => ['required', 'date'],
             'mail_category' => ['required', 'in:incoming_mail,official_memo'],
-            'mail_type' => [
+            'mail_type_id' => [
                 Rule::requiredIf($request->mail_category == 'official_memo'),
                 Rule::exists('params', 'id')->where(function($query) {
                     $query->where('category', 'mail_type');
                 })
             ],
-            'mail_nature' => [
+            'mail_nature_id' => [
                 'required',
                 Rule::exists('params', 'id')->where(function($query) {
                     $query->where('category', 'mail_nature');
@@ -40,7 +40,8 @@ class CreateMailController extends Controller
 
         $input = $request->all();
         $user = $request->user();
-        $input['user_id'] = ($user->role == 'assistent') ? $user->parent_id : $user->id;
+        $user_id = ($user->role == 'assistent') ? $user->parent_id : $user->id;
+        $input['user_id'] = $user_id;
         
         $input['agenda_number'] = $this->max_agenda_number();
         $mail = Mail::create($input);
@@ -55,6 +56,13 @@ class CreateMailController extends Controller
         }
 
         $mail->file_manager()->createMany($files);
+
+        // create log
+        $mail->activity_log()->create([
+            'user_id' => $user_id,
+            'log' => 'upload_mail',
+        ]);
+
         return ResponseFormatter::success(new MailDetailResource($mail), 'success create mail data');
     }
 

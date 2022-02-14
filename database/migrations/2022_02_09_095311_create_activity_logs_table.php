@@ -20,6 +20,10 @@ class CreateActivityLogsTable extends Migration
             $table->string('log');
             $table->timestamps();
         });
+
+        Schema::table('disposition_assigments', function (Blueprint $table) {
+            $table->foreign('activity_log_id')->references('id')->on('activity_logs')->onDelete('cascade')->onUpdate('cascade');
+        });
     }
 
     /**

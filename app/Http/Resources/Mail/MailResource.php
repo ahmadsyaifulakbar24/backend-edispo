@@ -14,6 +14,18 @@ class MailResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'user' => [
+                'id' => $this->user->id,
+                'name' => $this->user->name,
+            ],
+            'agenda_number' => $this->agenda_number,
+            'mail_number' => $this->mail_number,
+            'mail_origin' => $this->mail_origin,
+            'regarding' => $this->regarding,
+            'mail_date' => $this->mail_date,
+            'created_at' => $this->created_at,
+        ];
     }
 }

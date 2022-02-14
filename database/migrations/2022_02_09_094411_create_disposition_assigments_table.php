@@ -18,6 +18,7 @@ class CreateDispositionAssigmentsTable extends Migration
             $table->foreignUuid('mail_disposition_id')->constrained('mail_dispositions')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignUuid('sender_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignUuid('receiver_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->uuid('activity_log_id');
             $table->boolean('read')->default(0);
             $table->timestamps();
         });

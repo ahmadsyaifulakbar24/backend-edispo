@@ -48,16 +48,26 @@ class CreateMailDispositionController extends Controller
         $input = $request->all();
         $mail_disposition = $mail->mail_disposition()->create($input);
 
+        // update log
+        $user = $request->user();
+        $user_id = ($user->role == 'assistent') ? $user->parent_id : $user->id;
+        $log = $mail->activity_log()->create([
+            'user_id' => $user_id,
+            'log' => 'disposition_mail',
+        ]);
+
         foreach($request->assigments as $assigment) {
             $assigments[] = [
                 'sender_id' => $request->user()->id,
+                'activity_log_id' => $log->id,
+                'receiver_id' => $assigment['receiver_id'],
                 'read' => 0,
-                'receiver_id' => $assigment['receiver_id']
             ];
         }
 
         $mail_disposition->disposition_assigment()->createMany($assigments);
         $mail_disposition->disposition_instruction()->createMany($request->instruction);
+
         return ResponseFormatter::success(new MailDispositionResource($mail_disposition), 'success create mail disposition data');
     }
 }
