@@ -9,6 +9,7 @@ use App\Http\Controllers\API\Mail\GetMailController;
 use App\Http\Controllers\API\Mail\UpdateMailController;
 use App\Http\Controllers\API\MailDisposition\CreateMailDispositionController;
 use App\Http\Controllers\API\MailDisposition\GetMailDispositionController;
+use App\Http\Controllers\API\Param\ParamController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,13 @@ Route::middleware(['auth:api'])->group(function() {
     Route::prefix('auth')->group(function () {
         Route::post('/logout', LogoutController::class);
         Route::get('/user', UserController::class);
+    });
+
+    Route::prefix('param')->group(function () {
+        Route::get('mail_nature', [ParamController::class, 'get_mail_nature']);
+        Route::get('instruction', [ParamController::class, 'get_instruction']);
+        Route::get('mail_security', [ParamController::class, 'get_mail_security']);
+        Route::get('mail_type', [ParamController::class, 'get_mail_type']);
     });
 
     Route::prefix('mail')->group(function () {
