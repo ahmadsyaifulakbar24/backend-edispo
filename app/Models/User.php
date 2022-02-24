@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
@@ -54,4 +55,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $appends = [
+        'photo_url'
+    ];
+
+    public function user_group () 
+    {
+        return $this->hasMany(UserGroup::class, 'user_id');
+    }
+
+    public function getPhotoUrlAttribute()
+    {
+        return !empty($this->attributes['photo']) ? url('') . Storage::url($this->attributes['photo']) : null;
+    }
 }

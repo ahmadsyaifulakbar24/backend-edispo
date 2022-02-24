@@ -15,4 +15,19 @@ class ActivityLog extends Model
         'mail_id',
         'log'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function mail()
+    {
+        return $this->belongsTo(Mail::class, 'mail_id');
+    }
+
+    public function disposition_assigment()
+    {
+        return $this->hasMany(DispositionAssigment::class, 'activity_log_id');
+    }
 }

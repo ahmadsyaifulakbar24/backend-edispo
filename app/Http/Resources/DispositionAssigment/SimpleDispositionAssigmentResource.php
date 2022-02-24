@@ -16,8 +16,14 @@ class SimpleDispositionAssigmentResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'sender_id' => $this->sender_id,
-            'receiver_id' => $this->receiver_id,
+            'sender' => [
+                'id' => $this->sender->id,
+                'name' => $this->sender->name
+            ],
+            'receiver' => [
+                'id' => $this->receiver->id,
+                'name' => $this->receiver->name
+            ],
         ];
     }
 }

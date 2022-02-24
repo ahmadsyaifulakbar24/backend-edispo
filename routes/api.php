@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\ActivityLog\ActivityLogController;
 use App\Http\Controllers\API\Auth\LoginController;
 use App\Http\Controllers\API\Auth\LogoutController;
 use App\Http\Controllers\API\Auth\UserController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\API\Mail\UpdateMailController;
 use App\Http\Controllers\API\MailDisposition\CreateMailDispositionController;
 use App\Http\Controllers\API\MailDisposition\GetMailDispositionController;
 use App\Http\Controllers\API\Param\ParamController;
+use App\Http\Controllers\API\User\AllUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -50,10 +52,18 @@ Route::middleware(['auth:api'])->group(function() {
         Route::put('/{mail:id}', [UpdateMailController::class, 'update']);
         Route::delete('/{mail:id}', DeleteMailController::class);
     });
-
+    
     Route::prefix('mail_disposition')->group(function () {
         Route::post('/', CreateMailDispositionController::class);
         Route::get('/incoming_disposition', [GetMailDispositionController::class, 'incoming_disposition']);
         Route::get('/out_disposition', [GetMailDispositionController::class, 'out_disposition']);
+    });
+    
+    Route::prefix('user')->group(function() {
+        Route::get('/disposition', [AllUserController::class, 'disposition']);
+    });
+    Route::prefix('activity_log')->group(function() {
+        Route::get('/', [ActivityLogController::class, 'get']);
+        Route::get('/show/{activity_log:id}', [ActivityLogController::class, 'show']);
     });
 });
