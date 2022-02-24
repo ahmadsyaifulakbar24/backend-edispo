@@ -10,6 +10,7 @@ use App\Http\Controllers\API\Mail\GetMailController;
 use App\Http\Controllers\API\Mail\UpdateMailController;
 use App\Http\Controllers\API\MailDisposition\CreateMailDispositionController;
 use App\Http\Controllers\API\MailDisposition\GetMailDispositionController;
+use App\Http\Controllers\API\MailDisposition\UpdateMailDispositionController;
 use App\Http\Controllers\API\Param\ParamController;
 use App\Http\Controllers\API\User\AllUserController;
 use Illuminate\Http\Request;
@@ -57,6 +58,7 @@ Route::middleware(['auth:api'])->group(function() {
         Route::post('/', CreateMailDispositionController::class);
         Route::get('/incoming_disposition', [GetMailDispositionController::class, 'incoming_disposition']);
         Route::get('/out_disposition', [GetMailDispositionController::class, 'out_disposition']);
+        Route::patch('/read', [UpdateMailDispositionController::class, 'read']);
     });
     
     Route::prefix('user')->group(function() {

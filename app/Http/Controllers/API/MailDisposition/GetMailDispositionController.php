@@ -13,12 +13,11 @@ class GetMailDispositionController extends Controller
     public function incoming_disposition (Request $request)
     {
         $request->validate([
-            'receiver_id' => ['required', 'exists:users,id'],
             'search' => ['nullable','string'],
             'limit' => ['nullable', 'integer'],
         ]);
         $limit = $request->input('limit', 10);
-        $disposition_assigment =  VwDispositionAssigmentDetail::where('receiver_id', $request->receiver_id);
+        $disposition_assigment =  VwDispositionAssigmentDetail::where('receiver_id', $request->user()->id);
         if($request->search) {
             $disposition_assigment->where('mail_number', 'like', '%'.$request->search.'%');
         }
@@ -29,12 +28,11 @@ class GetMailDispositionController extends Controller
 
     public function out_disposition (Request $request) {
         $request->validate([
-            'sender_id' => ['required', 'exists:users,id'],
             'search' => ['nullable','string'],
             'limit' => ['nullable', 'integer'],
         ]);
         $limit = $request->input('limit', 10);
-        $disposition_assigment =  VwDispositionAssigmentDetail::where('sender_id', $request->sender_id);
+        $disposition_assigment =  VwDispositionAssigmentDetail::where('sender_id', $request->user()->id);
         if($request->search) {
             $disposition_assigment->where('mail_number', 'like', '%'.$request->search.'%');
         }
