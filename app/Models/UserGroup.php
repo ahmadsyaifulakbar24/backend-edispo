@@ -17,4 +17,9 @@ class UserGroup extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function scopeUserDetail($query) {
+        return $query->join('users', 'user_groups.user_id', '=', 'users.id')
+                ->select('user_groups.*', 'users.role');
+    }
 }

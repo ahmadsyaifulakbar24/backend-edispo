@@ -14,7 +14,7 @@ class AllUserController extends Controller
     public function disposition(Request $request)
     {
         $user = User::find($request->user()->id);
-        $user_group = UserGroup::where('parent_id', $user->id)->get();
+        $user_group = UserGroup::userDetail()->where([['parent_id', $user->id], ['role', '!=', 'assistant']])->get();
 
         return ResponseFormatter::success(UserGroupResource::collection($user_group), 'success get user disposition data');
     }
