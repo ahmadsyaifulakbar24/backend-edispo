@@ -14,4 +14,9 @@ class DispositionInstruction extends Model
         'mail_disposition_id',
         'instruction_id'
     ];
+
+    public function instruction()
+    {
+        return $this->belongsTo(Param::class, 'instruction_id');
+    }
 }
