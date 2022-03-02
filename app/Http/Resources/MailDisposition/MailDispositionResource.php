@@ -3,6 +3,7 @@
 namespace App\Http\Resources\MailDisposition;
 
 use App\Http\Resources\DispositionAssigment\SimpleDispositionAssigmentResource;
+use App\Http\Resources\Mail\MailDetailResource;
 use App\Http\Resources\Mail\MailResource;
 use App\Http\Resources\Param\ParamResource;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -19,7 +20,7 @@ class MailDispositionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'mail' => new MailResource($this->mail),
+            'mail' => new MailDetailResource($this->mail),
             'mail_security' => new ParamResource($this->mail_security),
             'disposition_instruction' => ParamResource::collection($this->disposition_instruction),
             'disposition_assingment' => SimpleDispositionAssigmentResource::collection($this->disposition_assigment),

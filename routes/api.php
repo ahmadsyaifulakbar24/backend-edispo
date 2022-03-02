@@ -58,6 +58,7 @@ Route::middleware(['auth:api'])->group(function() {
         Route::post('/', CreateMailDispositionController::class);
         Route::get('/incoming_disposition', [GetMailDispositionController::class, 'incoming_disposition']);
         Route::get('/out_disposition', [GetMailDispositionController::class, 'out_disposition']);
+        Route::get('/show/{mail_disposition:id}', [GetMailDispositionController::class, 'show']);
         Route::patch('/read', [UpdateMailDispositionController::class, 'read']);
     });
     

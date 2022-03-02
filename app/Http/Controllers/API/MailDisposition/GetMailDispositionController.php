@@ -5,11 +5,17 @@ namespace App\Http\Controllers\API\MailDisposition;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DispositionAssigment\DispositionAssigmentResource;
+use App\Http\Resources\MailDisposition\MailDispositionResource;
+use App\Models\MailDisposition;
 use App\Models\VwDispositionAssigmentDetail;
 use Illuminate\Http\Request;
 
 class GetMailDispositionController extends Controller
 {
+    public function show (MailDisposition $mail_disposition) {
+        return ResponseFormatter::success(new MailDispositionResource($mail_disposition), 'success get mail disposition  data');
+    }
+
     public function incoming_disposition (Request $request)
     {
         $request->validate([
