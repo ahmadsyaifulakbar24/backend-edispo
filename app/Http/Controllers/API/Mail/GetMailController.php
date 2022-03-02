@@ -23,7 +23,7 @@ class GetMailController extends Controller
         $mail = Mail::where('mail_category', $request->mail_category);
 
         $user = $request->user();
-        $user_id = ($user->role == 'assistent') ? $user->parent_id : $user->id;
+        $user_id = ($user->role == 'assistant') ? $user->parent_id : $user->id;
         $mail->where('user_id', $user_id);
         
         if($request->search) {

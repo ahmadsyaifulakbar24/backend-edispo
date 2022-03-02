@@ -45,7 +45,7 @@ class UpdateMailController extends Controller
 
         // update log
         $user = $request->user();
-        $user_id = ($user->role == 'assistent') ? $user->parent_id : $user->id;
+        $user_id = ($user->role == 'assistant') ? $user->parent_id : $user->id;
         $mail->activity_log()->create([
             'user_id' => $user_id,
             'log' => 'update_mail',

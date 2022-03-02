@@ -40,7 +40,7 @@ class CreateMailController extends Controller
 
         $input = $request->all();
         $user = $request->user();
-        $user_id = ($user->role == 'assistent') ? $user->parent_id : $user->id;
+        $user_id = ($user->role == 'assistant') ? $user->parent_id : $user->id;
         $input['user_id'] = $user_id;
         
         $input['agenda_number'] = $this->max_agenda_number();
