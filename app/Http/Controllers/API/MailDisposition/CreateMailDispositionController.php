@@ -50,7 +50,7 @@ class CreateMailDispositionController extends Controller
 
         // update log
         $user = $request->user();
-        $user_id = ($user->role == 'assistant') ? $user->parent_id : $user->id;
+        $user_id = ($user->role == 'assistant') ? $user->user_group()->first()->parent_id : $user->id;
         $log = $mail->activity_log()->create([
             'user_id' => $user_id,
             'log' => 'disposition_mail',
