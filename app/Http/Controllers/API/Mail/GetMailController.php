@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Mail\MailDetailResource;
 use App\Http\Resources\Mail\MailResource;
 use App\Models\Mail;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class GetMailController extends Controller
@@ -20,6 +21,11 @@ class GetMailController extends Controller
         ]);
         $limit = $request->input('limit', 10);
         $mail = Mail::where('mail_category', $request->mail_category);
+
+        $user = $request->user();
+        $user_id = ($user->role == 'assistent') ? $user->parent_id : $user->id;
+        $mail->where('user_id', $user_id);
+        
         if($request->search) {
             $mail->where('mail_number', 'like', '%'.$request->search.'%');
         }
