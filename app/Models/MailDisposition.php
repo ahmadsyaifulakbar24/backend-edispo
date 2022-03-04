@@ -11,7 +11,10 @@ class MailDisposition extends Model
     use Uuids, HasFactory;
     protected $table = 'mail_dispositions';
     protected $fillable = [
+        'type',
         'mail_id',
+        'incoming_disposition_id',
+        'agenda_id',        
         'description',
     ];
 

@@ -13,10 +13,15 @@ class FileManager extends Model
     use Uuids, HasFactory;
     protected $table = 'file_managers';
     protected $fillable = [
+        'type',
         'mail_id',
+        'incoming_disposition_id',
+        'agenda_id',
         'path',
         'file_name'
     ];
+
+    public $timestamps = false;
     
     protected $appends = [
         'path_url'

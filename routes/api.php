@@ -4,6 +4,10 @@ use App\Http\Controllers\API\ActivityLog\ActivityLogController;
 use App\Http\Controllers\API\Auth\LoginController;
 use App\Http\Controllers\API\Auth\LogoutController;
 use App\Http\Controllers\API\Auth\UserController;
+use App\Http\Controllers\API\IncomingDisposition\CreateIncomingDispositionController;
+use App\Http\Controllers\API\IncomingDisposition\DeleteIncomingDispositionController;
+use App\Http\Controllers\API\IncomingDisposition\GetIncomingDispositionController;
+use App\Http\Controllers\API\IncomingDisposition\UpdateIncomingDispositionController;
 use App\Http\Controllers\API\Mail\CreateMailController;
 use App\Http\Controllers\API\Mail\DeleteMailController;
 use App\Http\Controllers\API\Mail\GetMailController;
@@ -52,6 +56,14 @@ Route::middleware(['auth:api'])->group(function() {
         Route::post('/', CreateMailController::class);
         Route::put('/{mail:id}', [UpdateMailController::class, 'update']);
         Route::delete('/{mail:id}', DeleteMailController::class);
+    });
+
+    Route::prefix('incoming_disposition')->group(function() {
+        Route::post('', CreateIncomingDispositionController::class);
+        Route::get('', [GetIncomingDispositionController::class, 'get']);
+        Route::get('show/{incoming_disposition:id}', [GetIncomingDispositionController::class, 'show']);
+        Route::put('/{incoming_disposition:id}', UpdateIncomingDispositionController::class);
+        Route::delete('/{incoming_disposition:id}', DeleteIncomingDispositionController::class);
     });
     
     Route::prefix('mail_disposition')->group(function () {

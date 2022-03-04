@@ -15,7 +15,7 @@ class CreateIncomingDispositionInstructionsTable extends Migration
     {
         Schema::create('incoming_disposition_instructions', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('id_id')->comment('incoming_disposition_id')->constrained('incoming_dispositions')->onUpdate('cascade');
+            $table->foreignUuid('id_id')->comment('incoming_disposition_id')->constrained('incoming_dispositions')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignUuid('instruction_id')->constrained('params')->onUpdate('cascade')->onDelete('cascade');
         });
     }
