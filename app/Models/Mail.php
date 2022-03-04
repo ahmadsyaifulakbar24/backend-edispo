@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Mail extends Model
 {
-    use Uuids, HasFactory, SoftDeletes;
+    use Uuids, HasFactory;
     
     protected $table = 'mails';
 
@@ -20,9 +20,11 @@ class Mail extends Model
         'mail_origin',
         'regarding',
         'mail_date',
+        'date_received',
         'mail_category',
         'mail_type_id',
         'mail_nature_id',
+        'mail_security_id',
         'summary'
     ];
 
@@ -36,6 +38,11 @@ class Mail extends Model
     public function mail_disposition()
     {
         return $this->hasMany(MailDisposition::class, 'mail_id');
+    }
+
+    public function mail_security()
+    {
+        return $this->belongsTo(Param::class, 'mail_security_id');
     }
 
     public function user ()

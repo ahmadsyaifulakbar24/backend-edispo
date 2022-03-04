@@ -15,9 +15,11 @@ class CreateMailDispositionsTable extends Migration
     {
         Schema::create('mail_dispositions', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('mail_id')->constrained('mails')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('type'); // ['mail', 'nota dinas', 'incoming disposition', 'agenda']
+            $table->foreignUuid('mail_id')->nullable()->constrained('mails')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignUuid('incoming_disposition_id')->nullable()->constrained('incoming_dispositions')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignUuid('agenda_id')->nullable()->constrained('agendas')->onUpdate('cascade')->onDelete('cascade');
             $table->text('description')->nullable();
-            $table->foreignUuid('mail_security_id')->constrained('params')->onUpdate('cascade');
             $table->timestamps();
         });
     }

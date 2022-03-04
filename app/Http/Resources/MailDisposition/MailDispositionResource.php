@@ -21,7 +21,6 @@ class MailDispositionResource extends JsonResource
         return [
             'id' => $this->id,
             'mail' => new MailDetailResource($this->mail),
-            'mail_security' => new ParamResource($this->mail_security),
             // 'disposition_instruction' => ParamResource::collection($this->disposition_instruction),
             'disposition_instruction' => DispositionInsturctionResource::collection($this->disposition_instruction),
             'disposition_assingment' => SimpleDispositionAssigmentResource::collection($this->disposition_assigment),

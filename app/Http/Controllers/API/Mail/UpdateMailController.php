@@ -18,6 +18,7 @@ class UpdateMailController extends Controller
             'mail_origin' => ['required', 'string'],
             'regarding' => ['required', 'string'],
             'mail_date' => ['required', 'date'],
+            'date_received' => ['required', 'date'],
             'mail_type_id' => [
                 Rule::requiredIf($mail->mail_category == 'official_memo'),
                 Rule::exists('params', 'id')->where(function($query) {
@@ -37,6 +38,7 @@ class UpdateMailController extends Controller
         $input['mail_origin'] = $request->mail_origin;
         $input['regarding'] = $request->regarding;
         $input['mail_date'] = $request->mail_date;
+        $input['date_received'] = $request->date_received;
         $input['mail_type_id'] = $request->mail_type_id;
         $input['mail_nature_id'] = $request->mail_nature_id;
         $input['summary'] = $request->summary;

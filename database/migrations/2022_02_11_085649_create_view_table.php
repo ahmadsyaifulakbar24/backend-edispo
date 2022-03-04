@@ -27,7 +27,6 @@ class CreateViewTable extends Migration
                 a.created_at,
                 a.updated_at,
                 b.mail_id,
-                b.mail_security_id,
                 b.description,
                 c.mail_number
             FROM disposition_assigments as a

@@ -13,17 +13,11 @@ class MailDisposition extends Model
     protected $fillable = [
         'mail_id',
         'description',
-        'mail_security_id',
     ];
 
     public function mail ()
     {
         return $this->belongsTo(Mail::class, 'mail_id');
-    }
-
-    public function mail_security()
-    {
-        return $this->belongsTo(Param::class, 'mail_security_id');
     }
 
     public function disposition_instruction()

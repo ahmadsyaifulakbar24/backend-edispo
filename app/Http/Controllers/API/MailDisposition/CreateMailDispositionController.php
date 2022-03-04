@@ -16,12 +16,6 @@ class CreateMailDispositionController extends Controller
         $request->validate([
             // mail disposition
             'mail_id' => ['required', 'exists:mails,id'],
-            'mail_security_id' => [
-                'required',
-                Rule::exists('params', 'id')->where(function($query) {
-                    return $query->where('category', 'mail_security');
-                })
-            ],
             'description' => ['required', 'string'],
 
             // assigments

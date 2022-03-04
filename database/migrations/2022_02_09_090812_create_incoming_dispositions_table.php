@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMailsTable extends Migration
+class CreateIncomingDispositionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateMailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('mails', function (Blueprint $table) {
+        Schema::create('incoming_dispositions', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained('users')->onUpdate('cascade');
             $table->integer('agenda_number');
@@ -22,11 +22,10 @@ class CreateMailsTable extends Migration
             $table->string('regarding');
             $table->date('mail_date');
             $table->date('date_received');
-            $table->enum('mail_category', ['incoming_mail', 'official_memo']);
-            $table->foreignUuid('mail_type_id')->nullable()->constrained('params')->onUpdate('cascade');
             $table->foreignUuid('mail_nature_id')->constrained('params')->onUpdate('cascade');
             $table->foreignUuid('mail_security_id')->constrained('params')->onUpdate('cascade');
             $table->string('summary');
+            $table->string('description');
             $table->timestamps();
         });
     }
@@ -38,6 +37,6 @@ class CreateMailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mails');
+        Schema::dropIfExists('incoming_dispositions');
     }
 }

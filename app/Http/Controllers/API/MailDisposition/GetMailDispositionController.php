@@ -16,22 +16,6 @@ class GetMailDispositionController extends Controller
         return ResponseFormatter::success(new MailDispositionResource($mail_disposition), 'success get mail disposition  data');
     }
 
-    public function incoming_disposition (Request $request)
-    {
-        $request->validate([
-            'search' => ['nullable','string'],
-            'limit' => ['nullable', 'integer'],
-        ]);
-        $limit = $request->input('limit', 10);
-        $disposition_assigment =  VwDispositionAssigmentDetail::where('receiver_id', $request->user()->id);
-        if($request->search) {
-            $disposition_assigment->where('mail_number', 'like', '%'.$request->search.'%');
-        }
-
-        $result = $disposition_assigment->paginate($limit);
-        return ResponseFormatter::success(DispositionAssigmentResource::collection($result)->response()->getData(), 'success get mail disposition data');
-    }
-
     public function out_disposition (Request $request) {
         $request->validate([
             'search' => ['nullable','string'],

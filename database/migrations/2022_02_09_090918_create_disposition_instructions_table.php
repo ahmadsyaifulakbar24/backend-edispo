@@ -17,7 +17,6 @@ class CreateDispositionInstructionsTable extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('mail_disposition_id')->constrained('mail_dispositions')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignUuid('instruction_id')->constrained('params')->onUpdate('cascade');
-            $table->timestamps();
         });
     }
 

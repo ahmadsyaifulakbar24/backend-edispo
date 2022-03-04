@@ -20,6 +20,7 @@ class CreateMailController extends Controller
             'mail_origin' => ['required', 'string'],
             'regarding' => ['required', 'string'],
             'mail_date' => ['required', 'date'],
+            'date_received' => ['required', 'date'],
             'mail_category' => ['required', 'in:incoming_mail,official_memo'],
             'mail_type_id' => [
                 Rule::requiredIf($request->mail_category == 'official_memo'),
@@ -31,6 +32,12 @@ class CreateMailController extends Controller
                 'required',
                 Rule::exists('params', 'id')->where(function($query) {
                     $query->where('category', 'mail_nature');
+                })
+            ],
+            'mail_security_id' => [
+                'required',
+                Rule::exists('params', 'id')->where(function($query) {
+                    return $query->where('category', 'mail_security');
                 })
             ],
             'summary' => ['required', 'string'],

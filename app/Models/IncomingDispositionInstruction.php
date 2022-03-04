@@ -6,16 +6,22 @@ use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DispositionInstruction extends Model
+class IncomingDispositionInstruction extends Model
 {
     use Uuids, HasFactory;
-    protected $table = 'disposition_instructions';
+
+    protected $table = 'incoming_disposition_instructions';
     protected $fillable = [
-        'mail_disposition_id',
-        'instruction_id'
+        'incoming_disposition_id',
+        'instruction_id',
     ];
 
     public $timestamps = false;
+
+    public function incoming_disposition()
+    {
+        return $this->belongsTo(IncomingDisposition::class, 'incoming_disposition_id');
+    }
 
     public function instruction()
     {
