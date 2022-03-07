@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\API\ActivityLog\ActivityLogController;
+use App\Http\Controllers\API\Agenda\CreateAgendaController;
+use App\Http\Controllers\API\Agenda\DeleteAgendaController;
+use App\Http\Controllers\API\Agenda\GetAgendaController;
+use App\Http\Controllers\API\Agenda\UpdateAgendaController;
 use App\Http\Controllers\API\Auth\LoginController;
 use App\Http\Controllers\API\Auth\LogoutController;
 use App\Http\Controllers\API\Auth\UserController;
@@ -71,6 +75,14 @@ Route::middleware(['auth:api'])->group(function() {
         Route::get('/out_disposition', [GetMailDispositionController::class, 'out_disposition']);
         Route::get('/show/{mail_disposition:id}', [GetMailDispositionController::class, 'show']);
         Route::patch('/read', [UpdateMailDispositionController::class, 'read']);
+    });
+
+    Route::prefix('agenda')->group(function() {
+        Route::get('/', [GetAgendaController::class, 'get']);
+        Route::get('/{agenda:id}', [GetAgendaController::class, 'show']);
+        Route::post('/', CreateAgendaController::class);
+        Route::put('/{agenda:id}', UpdateAgendaController::class);
+        Route::delete('/{agenda:id}', DeleteAgendaController::class);
     });
     
     Route::prefix('user')->group(function() {

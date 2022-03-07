@@ -2,7 +2,9 @@
 
 namespace App\Http\Resources\MailDisposition;
 
+use App\Http\Resources\Agenda\AgendaDetailResource;
 use App\Http\Resources\DispositionAssigment\SimpleDispositionAssigmentResource;
+use App\Http\Resources\IncomingDisposition\IncomingDispositionDetailResource;
 use App\Http\Resources\Mail\MailDetailResource;
 use App\Http\Resources\Mail\MailResource;
 use App\Http\Resources\Param\ParamResource;
@@ -21,7 +23,8 @@ class MailDispositionResource extends JsonResource
         return [
             'id' => $this->id,
             'mail' => new MailDetailResource($this->mail),
-            // 'disposition_instruction' => ParamResource::collection($this->disposition_instruction),
+            'incoming_disposition' => new IncomingDispositionDetailResource($this->incoming_disposition),
+            'egenda' => new AgendaDetailResource($this->agenda),
             'disposition_instruction' => DispositionInsturctionResource::collection($this->disposition_instruction),
             'disposition_assingment' => SimpleDispositionAssigmentResource::collection($this->disposition_assigment),
             'description' => $this->description,

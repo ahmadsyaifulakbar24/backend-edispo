@@ -69,6 +69,7 @@ class CreateMailController extends Controller
         $mail->activity_log()->create([
             'user_id' => $user_id,
             'log' => 'upload_mail',
+            'type' => 'mail',
         ]);
 
         return ResponseFormatter::success(new MailDetailResource($mail), 'success create mail data');

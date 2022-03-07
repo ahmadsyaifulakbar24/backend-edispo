@@ -23,6 +23,16 @@ class MailDisposition extends Model
         return $this->belongsTo(Mail::class, 'mail_id');
     }
 
+    public function incoming_disposition()
+    {
+        return $this->belongsTo(IncomingDisposition::class, 'incoming_disposition_id');
+    }
+
+    public function agenda()
+    {
+        return $this->belongsTo(Agenda::class, 'agenda_id');
+    }
+
     public function disposition_instruction()
     {
         return $this->hasMany(DispositionInstruction::class, 'mail_disposition_id');
