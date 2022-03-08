@@ -20,6 +20,7 @@ use App\Http\Controllers\API\MailDisposition\CreateMailDispositionController;
 use App\Http\Controllers\API\MailDisposition\GetMailDispositionController;
 use App\Http\Controllers\API\MailDisposition\UpdateMailDispositionController;
 use App\Http\Controllers\API\Param\ParamController;
+use App\Http\Controllers\API\Report\ReportController;
 use App\Http\Controllers\API\User\AllUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -88,8 +89,13 @@ Route::middleware(['auth:api'])->group(function() {
     Route::prefix('user')->group(function() {
         Route::get('/disposition', [AllUserController::class, 'disposition']);
     });
+
     Route::prefix('activity_log')->group(function() {
         Route::get('/', [ActivityLogController::class, 'get']);
         Route::get('/show/{activity_log:id}', [ActivityLogController::class, 'show']);
+    });
+
+    Route::prefix('report')->group(function() {
+        Route::get('total_data', [ReportController::class, 'get_total_data']);
     });
 });

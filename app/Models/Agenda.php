@@ -19,6 +19,7 @@ class Agenda extends Model
         'date',
         'location',
         'description',
+        'disposition'
     ];
 
     public function user()

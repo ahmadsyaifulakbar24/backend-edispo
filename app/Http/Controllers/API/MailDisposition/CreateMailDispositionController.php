@@ -6,6 +6,7 @@ use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\MailDisposition\MailDispositionResource;
 use App\Models\ActivityLog;
+use App\Models\Agenda;
 use App\Models\Mail;
 use App\Models\MailDisposition;
 use Illuminate\Http\Request;
@@ -27,7 +28,7 @@ class CreateMailDispositionController extends Controller
                 'exists:incoming_dispositions,id'
             ],
             'agenda_id' => [
-                // Rule::requiredIf($request->type == 'agenda'),
+                Rule::requiredIf($request->type == 'agenda'),
                 'exists:agendas,id'
             ],
             'description' => ['required', 'string'],
@@ -66,6 +67,7 @@ class CreateMailDispositionController extends Controller
             $input['incoming_disposition_id'] = $request->incoming_disposition_id;
             $input_log['incoming_disposition_id'] = $request->incoming_disposition_id;
         } else if($request->type == 'agenda') {
+            Agenda::find($request->agenda_id)->update(['disposition' => 1]);
             $input['agenda_id'] = $request->agenda_id;
             $input_log['agenda_id'] = $request->agenda_id;
         }

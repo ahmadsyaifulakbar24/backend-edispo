@@ -19,9 +19,10 @@ class CreateAgendasTable extends Migration
             $table->integer('agenda_number');
             $table->string('origin');
             $table->string('regarding');
-            $table->timestamp('date');
+            $table->dateTime('date');
             $table->string('location');
             $table->string('description');
+            $table->boolean('disposition')->default(0);
             $table->timestamps();
         });
     }
