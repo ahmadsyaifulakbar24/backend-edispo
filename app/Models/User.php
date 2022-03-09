@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\Uuids;
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -60,6 +61,14 @@ class User extends Authenticatable
         'photo_url'
     ];
 
+    public function getCreatedAtAttribute($date) {
+        return Carbon::parse($date)->format('Y-m-d H:i:s');
+    }
+
+    public function getUpdatedAtAttribute($date) {
+        return Carbon::parse($date)->format('Y-m-d H:i:s');
+    }
+
     public function user_group () 
     {
         return $this->hasMany(UserGroup::class, 'user_id');
@@ -68,5 +77,10 @@ class User extends Authenticatable
     public function getPhotoUrlAttribute()
     {
         return !empty($this->attributes['photo']) ? url('') . Storage::url($this->attributes['photo']) : null;
+    }
+
+    public function position()
+    {
+        return $this->belongsTo(Param::class, 'postition_id');
     }
 }
