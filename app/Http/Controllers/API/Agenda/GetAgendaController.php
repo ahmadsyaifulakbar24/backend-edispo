@@ -33,7 +33,7 @@ class GetAgendaController extends Controller
         }
 
         $result = $agenda->orderBy('created_at', 'desc')->paginate($limit);
-        return ResponseFormatter::success(AgendaResource::collection($result), 'success get agenda data');
+        return ResponseFormatter::success(AgendaResource::collection($result)->response()->getData(true), 'success get agenda data');
     }
 
     public function show(Agenda $agenda)
