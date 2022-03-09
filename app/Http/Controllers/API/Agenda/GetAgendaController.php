@@ -32,7 +32,7 @@ class GetAgendaController extends Controller
             $agenda->where('regarding', 'like', '%' . $request->search . '%');
         }
 
-        $result = $agenda->paginate($limit);
+        $result = $agenda->orderBy('created_at', 'desc')->paginate($limit);
         return ResponseFormatter::success(AgendaResource::collection($result), 'success get agenda data');
     }
 

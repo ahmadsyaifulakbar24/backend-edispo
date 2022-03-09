@@ -25,7 +25,7 @@ class GetIncomingDispositionController extends Controller
             $incoming_disposition->where('mail_number', 'like', '%'.$request->search.'%');
         }
 
-        $result = $incoming_disposition->paginate($limit);
+        $result = $incoming_disposition->orderBy('created_at', 'desc')->paginate($limit);
         return ResponseFormatter::success(IncomingDispositionResource::collection($result)->response()->getData(true), 'success get incoming disposition data');
     }
 

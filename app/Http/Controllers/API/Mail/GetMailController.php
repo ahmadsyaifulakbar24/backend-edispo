@@ -29,7 +29,7 @@ class GetMailController extends Controller
         if($request->search) {
             $mail->where('mail_number', 'like', '%'.$request->search.'%');
         }
-        $result = $mail->paginate($limit);
+        $result = $mail->orderBy('created_at', 'desc')->paginate($limit);
         return ResponseFormatter::success(MailResource::collection($result)->response()->getData(true), 'success get mail data');
     }
 

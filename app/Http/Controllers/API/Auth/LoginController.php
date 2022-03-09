@@ -22,8 +22,7 @@ class LoginController extends Controller
         ]);
         try {
             // Mengecek credential login
-            $credentials = request(['username', 'password']);
-            if(!Auth::attempt($credentials)) {
+            if(!Auth::attempt(['username' => $request->username, 'password' => $request->password, 'active' => 1])) {
                 return ResponseFormatter::error([
                     'message' => 'Unauthorized'
                 ], 'Authentication Failed', 500);

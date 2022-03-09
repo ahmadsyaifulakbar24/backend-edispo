@@ -26,7 +26,7 @@ class GetMailDispositionController extends Controller
         if($request->search) {
             $disposition_assigment->where('mail_number', 'like', '%'.$request->search.'%');
         }
-        $result = $disposition_assigment->paginate($limit);
+        $result = $disposition_assigment->orderBy('created_at', 'desc')->paginate($limit);
         return ResponseFormatter::success(DispositionAssigmentResource::collection($result)->response()->getData(), 'success get mail disposition data');
     }
 }
