@@ -26,7 +26,7 @@ class GetIncomingDispositionController extends Controller
         }
 
         $result = $incoming_disposition->paginate($limit);
-        return ResponseFormatter::success(IncomingDispositionResource::collection($result), 'success get incoming disposition data');
+        return ResponseFormatter::success(IncomingDispositionResource::collection($result)->response()->getData(true), 'success get incoming disposition data');
     }
 
     public function show(IncomingDisposition $incoming_disposition)

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\IncomingDisposition;
 
+use App\Http\Resources\FileManager\FileManagerResource;
 use App\Http\Resources\Param\ParamResource;
 use App\Http\Resources\User\UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -29,8 +30,11 @@ class IncomingDispositionDetailResource extends JsonResource
             'mail_security' => new ParamResource($this->mail_security),
             'summary' => $this->summary,
             'description' => $this->description,
+            'addition' => FileManagerResource::collection($this->file_manager),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            // 'incoming_disposition_instruction' => IncomingDispositionInstructionResource::collection($this->incoming_disposition_instruction),
+            'incoming_disposition_instruction' => IncomingDispositionInstructionResource::collection($this->incoming_dispo_instruc_many),
         ];
     }
 }

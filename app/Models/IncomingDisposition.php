@@ -63,6 +63,11 @@ class IncomingDisposition extends Model
 
     public function incoming_disposition_instruction()
     {
-        return $this->belongsToMany(Param::class, 'incoming_disposition_instructions', 'id_id', 'instruction_id');
+        return $this->belongsToMany(Param::class, 'incoming_disposition_instructions', 'id_id', 'instruction_id')->withPivot('id');
+    }
+
+    public function incoming_dispo_instruc_many() 
+    {
+        return $this->hasMany(IncomingDispositionInstruction::class, 'id_id');
     }
 }
