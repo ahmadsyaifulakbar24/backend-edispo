@@ -18,7 +18,8 @@ class AgendaDetailResource extends JsonResource
         return [
             'id' => $this->id,
             'user' => new UserDetailResource($this->user),
-            'agenda_number' => $this->agenda_number,
+            'agenda_number' => $this->agenda_number.'-UND',
+            'mail_number' => $this->mail_number,
             'origin' => $this->origin,
             'regarding' => $this->regarding,
             'date' => $this->date,

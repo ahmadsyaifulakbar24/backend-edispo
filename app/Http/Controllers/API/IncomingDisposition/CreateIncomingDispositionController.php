@@ -35,6 +35,7 @@ class CreateIncomingDispositionController extends Controller
                 })
             ],
             'summary' => ['required', 'string'],
+            'disposition_from' => ['required', 'string'],
             'addition' => ['required', 'array'],
             'addition.*.file' => ['required', 'file'],
 
@@ -80,7 +81,7 @@ class CreateIncomingDispositionController extends Controller
 
         // create log
         $incoming_disposition->activity_log()->create([
-            'user_id' => $user_id,
+            'user_id' => $user->id,
             'type' => 'incoming_disposition',
             'log' => 'upload_incoming_disposition',
         ]);

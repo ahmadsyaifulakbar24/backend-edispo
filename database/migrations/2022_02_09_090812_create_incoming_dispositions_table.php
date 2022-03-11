@@ -24,6 +24,7 @@ class CreateIncomingDispositionsTable extends Migration
             $table->date('date_received');
             $table->foreignUuid('mail_nature_id')->constrained('params')->onUpdate('cascade');
             $table->foreignUuid('mail_security_id')->constrained('params')->onUpdate('cascade');
+            $table->string('disposition_from');
             $table->string('summary');
             $table->string('description');
             $table->timestamps();

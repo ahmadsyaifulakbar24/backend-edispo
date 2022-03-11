@@ -28,6 +28,7 @@ class IncomingDispositionResource extends JsonResource
             'mail_nature' => new ParamResource($this->mail_nature),
             'mail_security' => new ParamResource($this->mail_security),
             'summary' => $this->summary,
+            'disposition_from' => $this->disposition_from,
             'description' => $this->description,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

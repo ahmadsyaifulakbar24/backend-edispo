@@ -13,7 +13,6 @@ class DispositionAssigment extends Model
     protected $table = 'disposition_assigments';
     protected $fillable = [
         'mail_disposition_id',
-        'sender_id',
         'receiver_id',
         'read',
         'activity_log_id'
@@ -25,11 +24,6 @@ class DispositionAssigment extends Model
 
     public function getUpdatedAtAttribute($date) {
         return Carbon::parse($date)->format('Y-m-d H:i:s');
-    }
-    
-    public function sender ()
-    {
-        return $this->belongsTo(User::class, 'sender_id');
     }
 
     public function receiver ()

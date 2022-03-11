@@ -20,7 +20,6 @@ class CreateViewTable extends Migration
             SELECT 
                 a.id,
                 a.mail_disposition_id,
-                a.sender_id,
                 a.receiver_id,
                 a.activity_log_id,
                 a.read,

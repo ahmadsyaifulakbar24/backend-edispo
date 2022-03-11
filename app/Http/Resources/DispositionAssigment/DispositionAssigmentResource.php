@@ -17,13 +17,10 @@ class DispositionAssigmentResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'sender' => [
-                'id' => $this->sender->id,
-                'name' => $this->sender->name
-            ],
             'receiver' => [
                 'id' => $this->receiver->id,
-                'name' => $this->receiver->name
+                'name' => $this->receiver->name,
+                'position_name' => $this->receiver->position_name
             ],
             'mail_disposition' => new MailDispositionResource($this->mail_disposition),
             'read' => $this->read,

@@ -28,6 +28,7 @@ class IncomingDispositionDetailResource extends JsonResource
             'date_received' => $this->date_received,
             'mail_nature' => new ParamResource($this->mail_nature),
             'mail_security' => new ParamResource($this->mail_security),
+            'disposition_from' => $this->disposition_from,
             'summary' => $this->summary,
             'description' => $this->description,
             'addition' => FileManagerResource::collection($this->file_manager),

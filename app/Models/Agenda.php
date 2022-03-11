@@ -15,6 +15,7 @@ class Agenda extends Model
     protected $fillable = [
         'user_id',
         'agenda_number',
+        'mail_number',
         'origin',
         'regarding',
         'date',

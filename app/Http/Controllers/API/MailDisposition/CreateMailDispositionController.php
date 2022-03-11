@@ -52,8 +52,6 @@ class CreateMailDispositionController extends Controller
             ],
         ]);
 
-        // $mail = Mail::find($request->mail_id);
-
         $input = $request->except([
             'mail_id',
             'incoming_disposition_id',
@@ -71,20 +69,18 @@ class CreateMailDispositionController extends Controller
             $input['agenda_id'] = $request->agenda_id;
             $input_log['agenda_id'] = $request->agenda_id;
         }
+        $input['sender_id'] = $request->user()->id;
         $mail_disposition = MailDisposition::create($input);
-
+        
         // update log
         $user = $request->user();
-        $user_id = ($user->role == 'assistant') ? $user->user_group()->first()->parent_id : $user->id;
-        $input_log['user_id'] = $user_id;
+        $input_log['user_id'] = $user->id;
         $input_log['log'] = 'disposition_'.$request->type;
         $input_log['type'] = $request->type;
         $log = ActivityLog::create($input_log);
-
-
+        
         foreach($request->assigments as $assigment) {
             $assigments[] = [
-                'sender_id' => $request->user()->id,
                 'activity_log_id' => $log->id,
                 'receiver_id' => $assigment['receiver_id'],
                 'read' => 0,

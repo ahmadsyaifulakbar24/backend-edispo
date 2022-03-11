@@ -23,6 +23,7 @@ class IncomingDisposition extends Model
         'date_received',
         'mail_nature_id',
         'mail_security_id',
+        'disposition_from',
         'summary',
         'description'
     ];

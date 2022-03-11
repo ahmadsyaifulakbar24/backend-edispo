@@ -67,7 +67,7 @@ class CreateMailController extends Controller
 
         // create log
         $mail->activity_log()->create([
-            'user_id' => $user_id,
+            'user_id' => $user->id,
             'log' => 'upload_mail',
             'type' => 'mail',
         ]);

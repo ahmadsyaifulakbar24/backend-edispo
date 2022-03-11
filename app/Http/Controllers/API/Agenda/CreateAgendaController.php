@@ -15,6 +15,7 @@ class CreateAgendaController extends Controller
     public function __invoke(Request $request)
     {
         $request->validate([
+            'mail_number' => ['required', 'string'],
             'origin' => ['required', 'string'],
             'regarding' => ['required', 'string'],
             'date' => ['required', 'date_format:Y/m/d H:i:s'],

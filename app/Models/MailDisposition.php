@@ -6,6 +6,7 @@ use App\Traits\Uuids;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use PhpParser\Node\Expr\FuncCall;
 
 class MailDisposition extends Model
 {
@@ -16,6 +17,7 @@ class MailDisposition extends Model
         'mail_id',
         'incoming_disposition_id',
         'agenda_id',        
+        'sender_id',
         'description',
     ];
 
@@ -26,7 +28,7 @@ class MailDisposition extends Model
     public function getUpdatedAtAttribute($date) {
         return Carbon::parse($date)->format('Y-m-d H:i:s');
     }
-    
+
     public function mail ()
     {
         return $this->belongsTo(Mail::class, 'mail_id');

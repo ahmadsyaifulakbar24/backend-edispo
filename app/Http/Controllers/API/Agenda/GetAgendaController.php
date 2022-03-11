@@ -15,7 +15,7 @@ class GetAgendaController extends Controller
     {
         $request->validate([
             'user_id' => ['required', 'exists:users,id'],
-            'disposition' => ['required', 'in:0,1'],
+            'disposition' => ['nullable', 'in:0,1'],
             'limit' => ['nullable', 'integer'],
             'search' => ['nullable', 'string']
         ]);
@@ -26,6 +26,8 @@ class GetAgendaController extends Controller
 
         if($request->disposition == 1) {
             $agenda->where('disposition', 1);
+        } else if($request->disposition == 0) {
+            $agenda->where('disposition', 0);
         }
 
         if($request->search) {
