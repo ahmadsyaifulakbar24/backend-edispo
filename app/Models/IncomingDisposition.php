@@ -25,7 +25,8 @@ class IncomingDisposition extends Model
         'mail_security_id',
         'disposition_from',
         'summary',
-        'description'
+        'description',
+        'disposition'
     ];
 
     public function getCreatedAtAttribute($date) {

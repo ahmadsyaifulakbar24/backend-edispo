@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Agenda\AgendaDetailResource;
 use App\Http\Resources\Agenda\AgendaResource;
 use App\Models\Agenda;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class GetAgendaController extends Controller
@@ -16,6 +17,8 @@ class GetAgendaController extends Controller
         $request->validate([
             'user_id' => ['required', 'exists:users,id'],
             'disposition' => ['nullable', 'in:0,1'],
+            'from_date' => ['nullable', 'date', 'before_or_equal:'. Carbon::now()->format('Y-m-d')],
+            'until_date' => ['nullable', 'date', 'after_or_equal:' .$request->from_date, 'before_or_equal:'. Carbon::now()->format('Y-m-d')],
             'limit' => ['nullable', 'integer'],
             'search' => ['nullable', 'string']
         ]);
@@ -24,10 +27,16 @@ class GetAgendaController extends Controller
         
         $agenda = Agenda::where('user_id', $request->user_id);
 
-        if($request->disposition == 1) {
-            $agenda->where('disposition', 1);
-        } else if($request->disposition == 0) {
-            $agenda->where('disposition', 0);
+        if($request->disposition) {
+            $agenda->where('disposition', $request->disposition);
+        }
+
+        if($request->from_date) {
+            $agenda->where('created_at', '>=', $request->from_date);
+        }
+
+        if($request->until_date) {
+            $agenda->where('created_at', '<=', $request->until_date);
         }
 
         if($request->search) {

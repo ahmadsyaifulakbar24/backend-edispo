@@ -17,7 +17,7 @@ class CreateAgendasTable extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('agenda_number');
-            $table->integer('mail_number');
+            $table->string('mail_number');
             $table->string('origin');
             $table->string('regarding');
             $table->dateTime('date');

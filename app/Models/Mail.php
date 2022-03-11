@@ -26,7 +26,8 @@ class Mail extends Model
         'mail_type_id',
         'mail_nature_id',
         'mail_security_id',
-        'summary'
+        'summary',
+        'disposition',
     ];
 
     protected $dates = ['deleted_at'];

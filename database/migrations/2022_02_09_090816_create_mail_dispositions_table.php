@@ -21,6 +21,7 @@ class CreateMailDispositionsTable extends Migration
             $table->foreignUuid('agenda_id')->nullable()->constrained('agendas')->onUpdate('cascade')->onDelete('cascade');
             $table->text('description')->nullable();
             $table->foreignUuid('sender_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->boolean('disposition')->default(0);
             $table->timestamps();
         });
     }

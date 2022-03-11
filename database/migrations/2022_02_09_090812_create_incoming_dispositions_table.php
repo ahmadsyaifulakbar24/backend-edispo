@@ -27,6 +27,7 @@ class CreateIncomingDispositionsTable extends Migration
             $table->string('disposition_from');
             $table->string('summary');
             $table->string('description');
+            $table->boolean('disposition')->default(0);
             $table->timestamps();
         });
     }
