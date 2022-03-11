@@ -22,6 +22,7 @@ class DispositionAssigmentResource extends JsonResource
                 'name' => $this->receiver->name,
                 'position_name' => $this->receiver->position_name
             ],
+            'position_name' => $this->position_name,
             'mail_disposition' => new MailDispositionResource($this->mail_disposition),
             'read' => $this->read,
             'created_at' => $this->created_at,

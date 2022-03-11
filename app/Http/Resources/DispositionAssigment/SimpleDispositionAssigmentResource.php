@@ -21,6 +21,7 @@ class SimpleDispositionAssigmentResource extends JsonResource
                 'name' => $this->receiver->name,
                 'position_name' => $this->receiver->position_name,
             ],
+            'position_name' => $this->position_name,
         ];
     }
 }

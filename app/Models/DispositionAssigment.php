@@ -14,6 +14,7 @@ class DispositionAssigment extends Model
     protected $fillable = [
         'mail_disposition_id',
         'receiver_id',
+        'position_name',
         'read',
         'activity_log_id'
     ];

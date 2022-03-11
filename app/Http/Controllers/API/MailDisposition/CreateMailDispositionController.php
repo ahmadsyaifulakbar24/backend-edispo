@@ -36,8 +36,9 @@ class CreateMailDispositionController extends Controller
 
             // assigments
             'assigments' => ['required', 'array'],
+            'assigments.*.position_name' => ['required', 'string'],
             'assigments.*.receiver_id' => [
-                'required', 
+                'nullable', 
                 Rule::exists('user_groups', 'user_id')->where(function($query) use ($request) {
                     return $query->where('parent_id', $request->user()->id);
                 })
@@ -88,6 +89,7 @@ class CreateMailDispositionController extends Controller
             $assigments[] = [
                 'activity_log_id' => $log->id,
                 'receiver_id' => $assigment['receiver_id'],
+                'position_name' => $assigment['position_name'],
                 'read' => 0,
             ];
         }
