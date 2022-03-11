@@ -27,6 +27,7 @@ class CreateMailsTable extends Migration
             $table->foreignUuid('mail_nature_id')->constrained('params')->onUpdate('cascade');
             $table->foreignUuid('mail_security_id')->constrained('params')->onUpdate('cascade');
             $table->string('summary');
+            $table->boolean('disposition')->default(0);
             $table->timestamps();
         });
     }

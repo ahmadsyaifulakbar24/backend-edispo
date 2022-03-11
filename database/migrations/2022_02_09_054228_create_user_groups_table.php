@@ -17,6 +17,7 @@ class CreateUserGroupsTable extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained('users')->onUpdate('cascade');
             $table->foreignUuid('parent_id')->constrained('users')->onUpdate('cascade');
+            $table->integer('order')->nullable();
         });
     }
 
