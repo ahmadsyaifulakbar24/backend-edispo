@@ -21,7 +21,7 @@ class AgendaResource extends JsonResource
                 'name' => $this->user->name,
                 'position_name' => $this->user->position_name,
             ],
-            'agenda_number' => $this->agenda_number.'-UND',
+            'agenda_number' => sprintf('%04s', $this->agenda_number).'-UND',
             'mail_number' => $this->mail_number,
             'origin' => $this->origin,
             'regarding' => $this->regarding,

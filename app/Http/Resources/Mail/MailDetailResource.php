@@ -25,7 +25,7 @@ class MailDetailResource extends JsonResource
                 'name' => $this->user->name,
                 'position_name' => $this->user->position_name,
             ],
-            'agenda_number' => $this->agenda_number.$code,
+            'agenda_number' => sprintf('%04s', $this->agenda_number).$code,
             'mail_number' => $this->mail_number,
             'mail_origin' => $this->mail_origin,
             'regarding' => $this->regarding,
