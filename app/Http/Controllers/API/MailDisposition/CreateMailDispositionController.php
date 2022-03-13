@@ -88,7 +88,7 @@ class CreateMailDispositionController extends Controller
         foreach($request->assigments as $assigment) {
             $assigments[] = [
                 'activity_log_id' => $log->id,
-                'receiver_id' => $assigment['receiver_id'],
+                'receiver_id' => !empty($assigment['receiver_id']) ? $assigment['receiver_id'] : null,
                 'position_name' => $assigment['position_name'],
                 'read' => 0,
             ];
