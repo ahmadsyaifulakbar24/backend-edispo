@@ -16,7 +16,7 @@ class GetAgendaController extends Controller
     {
         $request->validate([
             'user_id' => ['required', 'exists:users,id'],
-            'disposition' => ['nullable', 'boolean', 'in:0,1'],
+            'disposition' => ['nullable', 'in:yes,no'],
             'from_date' => ['nullable', 'date', 'before_or_equal:'. Carbon::now()->format('Y-m-d')],
             'until_date' => ['nullable', 'date', 'after_or_equal:' .$request->from_date, 'before_or_equal:'. Carbon::now()->format('Y-m-d')],
             'limit' => ['nullable', 'integer'],
@@ -27,10 +27,15 @@ class GetAgendaController extends Controller
         
         $agenda = Agenda::where('user_id', $request->user_id);
         
-        if($request->disposition == 0 || $request->disposition == 1) {
-            $agenda->where('disposition', $request->disposition);
+        if($request->disposition) {
+            if($request->disposition == 'yes') {
+                $req_disposition = 1;
+            } else if($request->disposition == 'no') {
+                $req_disposition = 0;
+            }
+            $agenda->where('disposition', $req_disposition);
         }
-
+        
         if($request->from_date) {
             $agenda->where('created_at', '>=', $request->from_date);
         }
