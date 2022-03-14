@@ -16,7 +16,7 @@ class GetIncomingDispositionController extends Controller
     {
         $request->validate([
             'user_id' => ['required', 'exists:users,id'],
-            'disposition' => ['nullable', 'in:0,1'],
+            'disposition' => ['nullable', 'boolean', 'in:0,1'],
             'from_date' => ['nullable', 'date', 'before_or_equal:'. Carbon::now()->format('Y-m-d')],
             'until_date' => ['nullable', 'date', 'after_or_equal:' .$request->from_date, 'before_or_equal:'. Carbon::now()->format('Y-m-d')],
             'search' => ['nullable', 'string'],
@@ -25,7 +25,7 @@ class GetIncomingDispositionController extends Controller
         $limit = $request->input('limit', 10);
         $incoming_disposition = IncomingDisposition::where('user_id', $request->user_id);
 
-        if($request->disposition) {
+        if($request->disposition == 0 || $request->disposition == 1) {
             $incoming_disposition->where('disposition', $request->disposition);
         }
 

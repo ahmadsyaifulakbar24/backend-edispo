@@ -16,7 +16,7 @@ class GetMailController extends Controller
     {
         $request->validate([
             'mail_category' => ['required', 'in:incoming_mail,official_memo'],
-            'disposition' => ['nullable', 'in:0,1'],
+            'disposition' => ['nullable', 'boolean', 'in:0,1'],
             'from_date' => ['nullable', 'date', 'before_or_equal:'. Carbon::now()->format('Y-m-d')],
             'until_date' => ['nullable', 'date', 'after_or_equal:' .$request->from_date, 'before_or_equal:'. Carbon::now()->format('Y-m-d')],
             'search' => ['nullable', 'string'],
@@ -29,7 +29,7 @@ class GetMailController extends Controller
         $user_id = ($user->role == 'assistant') ? $user->user_group()->first()->parent_id : $user->id;
         $mail->where('user_id', $user_id);
         
-        if($request->disposition) {
+        if($request->disposition == 0 || $request->disposition == 1) {
             $mail->where('disposition', $request->disposition);
         }
 
