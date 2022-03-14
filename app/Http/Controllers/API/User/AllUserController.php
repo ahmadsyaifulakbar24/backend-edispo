@@ -13,8 +13,9 @@ class AllUserController extends Controller
 {
     public function disposition(Request $request)
     {
-        $user = User::find($request->user()->id);
-        $user_group = UserGroup::userDetail()->where('parent_id', $user->id)->orderBy('order', 'asc')->get();
+        $user = $request->user();
+        $user_id = ($user->role == 'assistant') ? $user->user_group()->first()->parent_id : $user->id;
+        $user_group = UserGroup::userDetail()->where('parent_id', $user_id)->orderBy('order', 'asc')->get();
 
         return ResponseFormatter::success(UserGroupResource::collection($user_group), 'success get user disposition data');
     }
