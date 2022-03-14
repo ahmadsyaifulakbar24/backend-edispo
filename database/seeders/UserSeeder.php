@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -72,7 +70,7 @@ class UserSeeder extends Seeder
             ("602c04d2-3132-47e4-932a-75a7b73e18ea", "Sahrul, S.Sos, M.A", "user_sm33", NULL, NULL, NULL, NULL, NULL, NULL, "Kepala Bagian Komunikasi dan Aspirasi Publik", "general", NULL, 0, "$2y$10$rdHxNPiRxfU..GeYA7lMyO.BYQoQVlS/n58IRGH32DtxJNfB4ScQe", NULL, NULL, NULL, NULL),
             ("6269885a-757a-4e54-b5be-1d2ec9b704fb", "Staff Khusus Inspektur", "stafsus_ins", NULL, NULL, NULL, NULL, NULL, NULL, "Staff Khusus Inspektur", "general", NULL, 1, "$2y$10$rdHxNPiRxfU..GeYA7lMyO.BYQoQVlS/n58IRGH32DtxJNfB4ScQe", NULL, "2022-03-08 01:13:44", "2022-03-08 01:13:44", NULL),
             ("63939b05-5b0c-4b71-832a-682765b7666e", "Renaldi, SE, MBA", "user_asdep342", NULL, NULL, NULL, NULL, NULL, NULL, "Kepala Bidang Kemitraan Usaha Kecil dan Menengah ", "general", NULL, 0, "$2y$10$rdHxNPiRxfU..GeYA7lMyO.BYQoQVlS/n58IRGH32DtxJNfB4ScQe", NULL, NULL, NULL, NULL),
-            ("646f1ab3-81c3-49d6-b854-250aa8005249", "Ir. Bastian", "user_bastian", NULL, NULL, NULL, NULL, NULL, NULL, "Kepala Biro Manajemen Kinerja, Organisasi, dan SDM Aparatur", "general", NULL, 1, "$2y$10$rdHxNPiRxfU..GeYA7lMyO.BYQoQVlS/n58IRGH32DtxJNfB4ScQe", NULL, "2022-03-08 01:13:44", "2022-03-08 01:13:44", NULL),
+            ("646f1ab3-81c3-49d6-b854-250aa8005249", "Ir. Bastian", "user_bastian", NULL, NULL, NULL, NULL, NULL, NULL, "Kepala Biro Mankin, Organisasi dan SDMA", "general", NULL, 1, "$2y$10$rdHxNPiRxfU..GeYA7lMyO.BYQoQVlS/n58IRGH32DtxJNfB4ScQe", NULL, "2022-03-08 01:13:44", "2022-03-08 01:13:44", NULL),
             ("648c69cf-1419-4176-baa9-a9d829f2ab1b", "Ir. Devi Rimayanti", "user_devirima", NULL, NULL, NULL, NULL, NULL, NULL, "Sekretaris Deputi Bidang Perkoperasian", "general", NULL, 1, "$2y$10$rdHxNPiRxfU..GeYA7lMyO.BYQoQVlS/n58IRGH32DtxJNfB4ScQe", NULL, "2022-03-08 01:13:44", "2022-03-08 01:13:44", NULL),
             ("64ed874f-3494-4b95-82c0-a73280834b07", "Eviyanti", "user_eviyanti", NULL, NULL, NULL, NULL, NULL, NULL, "Asdep Fasilitasi Hukum dan Konsultasi Usaha", "general", NULL, 1, "$2y$10$rdHxNPiRxfU..GeYA7lMyO.BYQoQVlS/n58IRGH32DtxJNfB4ScQe", NULL, "2022-03-08 01:13:44", "2022-03-08 01:13:44", NULL),
             ("65a189b9-b2d1-4a30-b146-4c4831a4e46d", "Bagus Rachman", "user_bagusrach", NULL, NULL, NULL, NULL, NULL, NULL, "Asdep Pengembangan dan Pembaruan Perkoperasian", "general", NULL, 1, "$2y$10$rdHxNPiRxfU..GeYA7lMyO.BYQoQVlS/n58IRGH32DtxJNfB4ScQe", NULL, "2022-03-08 01:13:44", "2022-03-08 01:13:44", NULL),
@@ -89,7 +87,7 @@ class UserSeeder extends Seeder
             ("7eb5a1cf-a824-47d7-8974-e44745461b21", "Staff Khusus Sesdep Usaha Mikro", "stafsus_sesdep2", NULL, NULL, NULL, NULL, NULL, NULL, "Staff Khusus Sesdep. 2", "assistant", NULL, 1, "$2y$10$rdHxNPiRxfU..GeYA7lMyO.BYQoQVlS/n58IRGH32DtxJNfB4ScQe", NULL, "2022-03-08 01:13:44", "2022-03-08 01:13:44", NULL),
             ("8168339f-3d6f-47da-8ca2-fce73024a96c", "Staff Khusus Biro KTI", "stafsus_sm3", NULL, NULL, NULL, NULL, NULL, NULL, "Staff Khusus SM. 3", "assistant", NULL, 1, "$2y$10$rdHxNPiRxfU..GeYA7lMyO.BYQoQVlS/n58IRGH32DtxJNfB4ScQe", NULL, "2022-03-08 01:13:44", "2022-03-08 01:13:44", NULL),
             ("83125ad2-ed3e-432b-ae32-a75182768bd2", "Staff Khusus Biro Umum & Keu", "stafsus_sm4", NULL, NULL, NULL, NULL, NULL, NULL, "Staff Khusus SM. 4", "assistant", NULL, 1, "$2y$10$rdHxNPiRxfU..GeYA7lMyO.BYQoQVlS/n58IRGH32DtxJNfB4ScQe", NULL, "2022-03-08 01:13:44", "2022-03-08 01:13:44", NULL),
-            ("869cfbc4-105e-4c58-8b46-98d138968a94", "Ir. Arif Rahman Hakim", "user_arifrahman", NULL, NULL, NULL, NULL, NULL, NULL, "Sekretaris Menteri", "general", NULL, 1, "$2y$10$rdHxNPiRxfU..GeYA7lMyO.BYQoQVlS/n58IRGH32DtxJNfB4ScQe", NULL, "2022-03-08 01:13:44", "2022-03-08 01:13:44", NULL),
+            ("869cfbc4-105e-4c58-8b46-98d138968a94", "Ir. Arif Rahman Hakim, MS", "user_arifrahman", NULL, NULL, NULL, NULL, NULL, NULL, "Sekretaris Menteri", "general", NULL, 1, "$2y$10$rdHxNPiRxfU..GeYA7lMyO.BYQoQVlS/n58IRGH32DtxJNfB4ScQe", NULL, "2022-03-08 01:13:44", "2022-03-08 01:13:44", NULL),
             ("8791563b-7afe-4a3c-8926-7fbc42892900", "Kabag Umum Dep. Perkoperasian", "user_kabum_dep1", NULL, NULL, NULL, NULL, NULL, NULL, "Kabag Umum Deputi Bidang Perkoperasian", "general", NULL, 1, "$2y$10$rdHxNPiRxfU..GeYA7lMyO.BYQoQVlS/n58IRGH32DtxJNfB4ScQe", NULL, "2022-03-08 01:13:44", "2022-03-08 01:13:44", NULL),
             ("88cf7c7c-7f5c-4ef9-9aad-4e932d70876f", "Mohammad Makhrisyafrisal, S.Kom", "user_asdep411", NULL, NULL, NULL, NULL, NULL, NULL, "Kepala Bidang Konsultasi Bisnis ", "general", NULL, 0, "$2y$10$rdHxNPiRxfU..GeYA7lMyO.BYQoQVlS/n58IRGH32DtxJNfB4ScQe", NULL, NULL, NULL, NULL),
             ("89a44f5b-ea26-4e89-b9f9-0a88dae8ce28", "Refani Anwar Aziz, S.H, M.Kn", "user_sm43", NULL, NULL, NULL, NULL, NULL, NULL, "Kepala Bagian Pengadaan Barang dan Jasa", "general", NULL, 0, "$2y$10$rdHxNPiRxfU..GeYA7lMyO.BYQoQVlS/n58IRGH32DtxJNfB4ScQe", NULL, NULL, NULL, NULL),
