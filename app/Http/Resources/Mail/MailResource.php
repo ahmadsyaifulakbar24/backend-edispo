@@ -27,6 +27,7 @@ class MailResource extends JsonResource
             'mail_origin' => $this->mail_origin,
             'regarding' => $this->regarding,
             'mail_date' => $this->mail_date,
+            'disposition' => $this->disposition,
             'created_at' => $this->created_at,
         ];
     }

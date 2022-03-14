@@ -32,6 +32,7 @@ class IncomingDispositionDetailResource extends JsonResource
             'summary' => $this->summary,
             'description' => $this->description,
             'addition' => FileManagerResource::collection($this->file_manager),
+            'disposition' => $this->disposition,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             // 'incoming_disposition_instruction' => IncomingDispositionInstructionResource::collection($this->incoming_disposition_instruction),

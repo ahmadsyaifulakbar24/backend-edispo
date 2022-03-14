@@ -36,6 +36,7 @@ class MailDetailResource extends JsonResource
             'mail_security' => new ParamResource($this->mail_security),
             'summary' => $this->summary,
             'addition' => FileManagerResource::collection($this->file_manager),
+            'disposition' => $this->disposition,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

@@ -30,6 +30,7 @@ class IncomingDispositionResource extends JsonResource
             'summary' => $this->summary,
             'disposition_from' => $this->disposition_from,
             'description' => $this->description,
+            'disposition' => $this->disposition,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

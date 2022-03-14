@@ -25,6 +25,7 @@ class AgendaDetailResource extends JsonResource
             'date' => $this->date,
             'location' => $this->location,
             'description' => $this->description,
+            'disposition' => $this->disposition,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
