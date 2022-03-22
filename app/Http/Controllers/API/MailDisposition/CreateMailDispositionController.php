@@ -38,13 +38,13 @@ class CreateMailDispositionController extends Controller
                 'in:hadir,diwakili,didampingi'
             ],
 
-            // assigments
-            'assigments' => [
-                Rule::requiredIf($request->type != 'agenda' && $request->confirmation != 'hadir'),
+            // assignments
+            'assignments' => [
+                Rule::requiredIf($request->confirmation != 'hadir'),
                 'array'
             ],
-            'assigments.*.position_name' => ['required_with:assigments', 'string'],
-            'assigments.*.receiver_id' => [
+            'assignments.*.position_name' => ['required_with:assignments', 'string'],
+            'assignments.*.receiver_id' => [
                 'nullable', 
                 Rule::exists('user_groups', 'user_id')->where(function($query) use ($request) {
                     return $query->where('parent_id', $request->user()->id);
@@ -97,22 +97,20 @@ class CreateMailDispositionController extends Controller
         $input_log['type'] = $request->type;
         $log = ActivityLog::create($input_log);
         
-        if($request->type != 'agenda' && $request->confirmation != 'hadir') {
-            foreach($request->assigments as $assigment) {
-                $assigments[] = [
+        if($request->confirmation != 'hadir') {
+            foreach($request->assignments as $assignment) {
+                $assignments[] = [
                     'activity_log_id' => $log->id,
-                    'receiver_id' => !empty($assigment['receiver_id']) ? $assigment['receiver_id'] : null,
-                    'position_name' => $assigment['position_name'],
+                    'receiver_id' => !empty($assignment['receiver_id']) ? $assignment['receiver_id'] : null,
+                    'position_name' => $assignment['position_name'],
                     'read' => 0,
                 ];
             }
-    
-            $mail_disposition->disposition_assigment()->createMany($assigments);
+            $mail_disposition->disposition_assignment()->createMany($assignments);
         }
         if($request->type != 'agenda') {
             $mail_disposition->disposition_instruction()->createMany($request->instruction);
         }
-
         return ResponseFormatter::success(new MailDispositionResource($mail_disposition), 'success create mail disposition data');
     }
 }

@@ -38,8 +38,8 @@ class ActivityLog extends Model
         return $this->belongsTo(Mail::class, 'mail_id');
     }
 
-    public function disposition_assigment()
+    public function disposition_assignment()
     {
-        return $this->hasMany(DispositionAssigment::class, 'activity_log_id');
+        return $this->hasMany(DispositionAssignment::class, 'activity_log_id');
     }
 }

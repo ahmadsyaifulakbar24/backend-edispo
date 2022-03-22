@@ -7,10 +7,10 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DispositionAssigment extends Model
+class DispositionAssignment extends Model
 {
     use Uuids, HasFactory;
-    protected $table = 'disposition_assigments';
+    protected $table = 'disposition_assignments';
     protected $fillable = [
         'mail_disposition_id',
         'receiver_id',

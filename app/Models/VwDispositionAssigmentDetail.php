@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class VwDispositionAssigmentDetail extends Model
+class VwDispositionAssignmentDetail extends Model
 {
     use HasFactory;
 
-    protected $table = 'vw_disposition_assigment_Detail';
+    protected $table = 'vw_disposition_assignment_Detail';
 
 
     public function mail()

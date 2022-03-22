@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDispositionAssigmentsTable extends Migration
+class CreateDispositionAssignmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateDispositionAssigmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('disposition_assigments', function (Blueprint $table) {
+        Schema::create('disposition_assignments', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('mail_disposition_id')->constrained('mail_dispositions')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignUuid('receiver_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
@@ -31,6 +31,6 @@ class CreateDispositionAssigmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('disposition_assigments');
+        Schema::dropIfExists('disposition_assignments');
     }
 }

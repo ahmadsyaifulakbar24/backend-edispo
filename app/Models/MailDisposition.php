@@ -49,8 +49,8 @@ class MailDisposition extends Model
         return $this->hasMany(DispositionInstruction::class, 'mail_disposition_id');
     }
 
-    public function disposition_assigment()
+    public function disposition_assignment()
     {
-        return $this->hasMany(DispositionAssigment::class, 'mail_disposition_id');
+        return $this->hasMany(DispositionAssignment::class, 'mail_disposition_id');
     }
 }

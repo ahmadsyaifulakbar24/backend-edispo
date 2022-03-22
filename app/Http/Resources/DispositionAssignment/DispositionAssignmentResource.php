@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\DispositionAssigment;
+namespace App\Http\Resources\DispositionAssignment;
 
 use App\Http\Resources\MailDisposition\MailDispositionResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class DispositionAssigmentResource extends JsonResource
+class DispositionAssignmentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

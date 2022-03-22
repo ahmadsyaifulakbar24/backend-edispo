@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\ActivityLog;
 
-use App\Http\Resources\DispositionAssigment\SimpleDispositionAssigmentResource;
+use App\Http\Resources\DispositionAssignment\SimpleDispositionAssignmentResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ActivityLogDetailResource extends JsonResource
@@ -22,7 +22,7 @@ class ActivityLogDetailResource extends JsonResource
                 'name' => $this->user->name,
                 'position_name' => $this->user->position_name,
             ],
-            'disposition_assigment' => SimpleDispositionAssigmentResource::collection($this->disposition_assigment),
+            'disposition_assignment' => SimpleDispositionAssignmentResource::collection($this->disposition_assignment),
             'log' => $this->log,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at

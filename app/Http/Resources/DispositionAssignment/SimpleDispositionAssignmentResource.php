@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\DispositionAssigment;
+namespace App\Http\Resources\DispositionAssignment;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SimpleDispositionAssigmentResource extends JsonResource
+class SimpleDispositionAssignmentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

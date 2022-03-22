@@ -14,9 +14,9 @@ class CreateViewTable extends Migration
      */
     public function up()
     {
-        DB::statement("DROP VIEW IF EXISTS vw_disposition_assigment_Detail");
+        DB::statement("DROP VIEW IF EXISTS vw_disposition_assignment_Detail");
         DB::statement("
-            CREATE VIEW vw_disposition_assigment_Detail as
+            CREATE VIEW vw_disposition_assignment_Detail as
             SELECT 
                 a.id,
                 a.mail_disposition_id,
@@ -28,7 +28,7 @@ class CreateViewTable extends Migration
                 b.mail_id,
                 b.description,
                 c.mail_number
-            FROM disposition_assigments as a
+            FROM disposition_assignments as a
             LEFT JOIN mail_dispositions as b ON a.mail_disposition_id = b.id
             LEFT JOIN mails as c ON b.mail_id = c.id
         ");
