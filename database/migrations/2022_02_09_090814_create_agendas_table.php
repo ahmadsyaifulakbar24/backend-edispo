@@ -20,6 +20,8 @@ class CreateAgendasTable extends Migration
             $table->string('mail_number');
             $table->string('origin');
             $table->string('regarding');
+            $table->dateTime('agenda_date');
+            $table->dateTime('date_received');
             $table->dateTime('date');
             $table->string('location');
             $table->string('description');

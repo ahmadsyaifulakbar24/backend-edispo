@@ -18,6 +18,8 @@ class CreateAgendaController extends Controller
             'mail_number' => ['required', 'string'],
             'origin' => ['required', 'string'],
             'regarding' => ['required', 'string'],
+            'agenda_date' => ['required', 'date'],
+            'date_received' => ['required', 'date'],
             'date' => ['required', 'date_format:Y/m/d H:i:s'],
             'location' => ['required', 'string'],
             'description' => ['required', 'string'],

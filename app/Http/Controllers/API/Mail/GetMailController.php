@@ -9,6 +9,7 @@ use App\Http\Resources\Mail\MailResource;
 use App\Models\Mail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GetMailController extends Controller
 {
@@ -39,15 +40,17 @@ class GetMailController extends Controller
         }
 
         if($request->from_date) {
-            $mail->where('created_at', '>=', $request->from_date);
+            $mail->where(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"), '>=', $request->from_date);
         }
 
         if($request->until_date) {
-            $mail->where('created_at', '<=', $request->until_date);
+            $mail->where(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"), '<=', $request->until_date);
         }
 
         if($request->search) {
-            $mail->where('mail_number', 'like', '%'.$request->search.'%');
+            $mail->where('mail_number', 'like', '%'.$request->search.'%')
+                    ->orWhere('regarding', 'like', '%'.$request->search.'%')
+                    ->orWhere('mail_origin', 'like', '%'.$request->search.'%');
         }
         $result = $mail->orderBy('created_at', 'desc')->paginate($limit);
         return ResponseFormatter::success(MailResource::collection($result)->response()->getData(true), 'success get mail data');

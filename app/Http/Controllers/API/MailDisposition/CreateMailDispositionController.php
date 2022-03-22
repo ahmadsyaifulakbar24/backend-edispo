@@ -33,10 +33,17 @@ class CreateMailDispositionController extends Controller
                 'exists:agendas,id'
             ],
             'description' => ['required', 'string'],
+            'confirmation' => [
+                Rule::requiredIf($request->type == 'agenda'),
+                'in:hadir,diwakili,didampingi'
+            ],
 
             // assigments
-            'assigments' => ['required', 'array'],
-            'assigments.*.position_name' => ['required', 'string'],
+            'assigments' => [
+                Rule::requiredIf($request->type != 'agenda' && $request->confirmation != 'hadir'),
+                'array'
+            ],
+            'assigments.*.position_name' => ['required_with:assigments', 'string'],
             'assigments.*.receiver_id' => [
                 'nullable', 
                 Rule::exists('user_groups', 'user_id')->where(function($query) use ($request) {
@@ -45,7 +52,10 @@ class CreateMailDispositionController extends Controller
             ],
 
             // instruction
-            'instruction' => ['required', 'array'],
+            'instruction' => [
+                Rule::requiredIf($request->type != 'agenda'),
+                'array'
+            ],
             'instruction.*.instruction_id' => [
                 'required', 
                 Rule::exists('params', 'id')->where(function($query) {
@@ -57,7 +67,8 @@ class CreateMailDispositionController extends Controller
         $input = $request->except([
             'mail_id',
             'incoming_disposition_id',
-            'agenda_id'
+            'agenda_id',
+            'confirmation'
         ]);
 
         if($request->type == 'mail') {
@@ -73,6 +84,7 @@ class CreateMailDispositionController extends Controller
         } else if($request->type == 'agenda') {
             Agenda::find($request->agenda_id)->update(['disposition' => 1]);
             $input['agenda_id'] = $request->agenda_id;
+            $input['confirmation'] = $request->confirmation;
             $input_log['agenda_id'] = $request->agenda_id;
         }
         $input['sender_id'] = $request->user()->id;
@@ -85,17 +97,21 @@ class CreateMailDispositionController extends Controller
         $input_log['type'] = $request->type;
         $log = ActivityLog::create($input_log);
         
-        foreach($request->assigments as $assigment) {
-            $assigments[] = [
-                'activity_log_id' => $log->id,
-                'receiver_id' => !empty($assigment['receiver_id']) ? $assigment['receiver_id'] : null,
-                'position_name' => $assigment['position_name'],
-                'read' => 0,
-            ];
+        if($request->type != 'agenda' && $request->confirmation != 'hadir') {
+            foreach($request->assigments as $assigment) {
+                $assigments[] = [
+                    'activity_log_id' => $log->id,
+                    'receiver_id' => !empty($assigment['receiver_id']) ? $assigment['receiver_id'] : null,
+                    'position_name' => $assigment['position_name'],
+                    'read' => 0,
+                ];
+            }
+    
+            $mail_disposition->disposition_assigment()->createMany($assigments);
         }
-
-        $mail_disposition->disposition_assigment()->createMany($assigments);
-        $mail_disposition->disposition_instruction()->createMany($request->instruction);
+        if($request->type != 'agenda') {
+            $mail_disposition->disposition_instruction()->createMany($request->instruction);
+        }
 
         return ResponseFormatter::success(new MailDispositionResource($mail_disposition), 'success create mail disposition data');
     }

@@ -18,6 +18,8 @@ class Agenda extends Model
         'mail_number',
         'origin',
         'regarding',
+        'agenda_date',
+        'date_received',
         'date',
         'location',
         'description',

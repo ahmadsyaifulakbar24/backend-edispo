@@ -47,7 +47,7 @@ class ParamSeeder extends Seeder
         Param::create([
             'id' => '47c87050-5e73-43ef-947a-9fac74bb2e24',
             'category' => 'instruction',
-            'param' => 'Disiapkan Bahan/Data/Sambutan',
+            'param' => 'Siapkan Bahan/Data/Sambutan',
         ]);
 
         Param::create([
@@ -59,7 +59,7 @@ class ParamSeeder extends Seeder
         Param::create([
             'id' => '918fa273-dfee-4f71-9404-f51462d057b7',
             'category' => 'instruction',
-            'param' => 'Telaah',
+            'param' => 'Telaah/Analisa',
         ]);
 
         Param::create([
@@ -83,13 +83,13 @@ class ParamSeeder extends Seeder
         Param::create([
             'id' => 'c4d8ce63-664f-439f-8e09-3910ce486c97',
             'category' => 'instruction',
-            'param' => 'Pelajari/Pendapat/Saran',
+            'param' => 'Pendapat/Saran',
         ]);
 
         Param::create([
             'id' => '0c23c2c7-690b-48f0-b2f2-2fa4cb38beff',
             'category' => 'instruction',
-            'param' => 'Tanggapan/Tindak Lanjut/Jawaban',
+            'param' => 'Tindak Lanjuti',
         ]);
 
         Param::create([

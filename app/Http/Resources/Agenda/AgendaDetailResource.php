@@ -22,6 +22,8 @@ class AgendaDetailResource extends JsonResource
             'mail_number' => $this->mail_number,
             'origin' => $this->origin,
             'regarding' => $this->regarding,
+            'agenda_date' => $this->agenda_date,
+            'date_received' => $this->date_received,
             'date' => $this->date,
             'location' => $this->location,
             'description' => $this->description,

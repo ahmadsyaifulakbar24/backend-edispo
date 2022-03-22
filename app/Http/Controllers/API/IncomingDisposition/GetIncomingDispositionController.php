@@ -9,6 +9,7 @@ use App\Http\Resources\IncomingDisposition\IncomingDispositionResource;
 use App\Models\IncomingDisposition;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GetIncomingDispositionController extends Controller
 {
@@ -35,15 +36,17 @@ class GetIncomingDispositionController extends Controller
         }
 
         if($request->from_date) {
-            $incoming_disposition->where('created_at', '>=', $request->from_date);
+            $incoming_disposition->where(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"), '>=', $request->from_date);
         }
 
         if($request->until_date) {
-            $incoming_disposition->where('created_at', '<=', $request->until_date);
+            $incoming_disposition->where(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"), '<=', $request->until_date);
         }
 
         if($request->search) {
-            $incoming_disposition->where('mail_number', 'like', '%'.$request->search.'%');
+            $incoming_disposition->where('mail_number', 'like', '%'.$request->search.'%')
+                                ->orWhere('regarding', 'like', '%'.$request->search.'%')
+                                ->orWhere('mail_origin', 'like', '%'.$request->search.'%');
         }
 
         $result = $incoming_disposition->orderBy('created_at', 'desc')->paginate($limit);
