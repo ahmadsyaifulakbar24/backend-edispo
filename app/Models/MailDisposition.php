@@ -19,6 +19,7 @@ class MailDisposition extends Model
         'agenda_id',        
         'sender_id',
         'description',
+        'confirmation',
     ];
 
     public function getCreatedAtAttribute($date) {
