@@ -27,6 +27,7 @@ class MailDispositionResource extends JsonResource
             // 'disposition_assignment' => SimpleDispositionAssignmentResource::collection($this->disposition_assignment),
             'disposition_assignment' => SimpleDispositionAssignmentResource::collection($this->disposition_assignment),
             'description' => $this->description,
+            'confirmation' => $this->confirmation,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
