@@ -16,8 +16,6 @@ class MailDetailResource extends JsonResource
      */
     public function toArray($request)
     {
-        $code = ($this->mail_category == 'incoming_mail') ? '-S' : '-UND';
-        
         return [
             'id' => $this->id,
             'user' => [
@@ -25,7 +23,8 @@ class MailDetailResource extends JsonResource
                 'name' => $this->user->name,
                 'position_name' => $this->user->position_name,
             ],
-            'agenda_number' => sprintf('%04s', $this->agenda_number).$code,
+            'agenda_number' => sprintf('%04s', $this->agenda_number).$this->mail_category_code,
+            'mail_category_code' => $this->mail_category_code,
             'mail_number' => $this->mail_number,
             'mail_origin' => $this->mail_origin,
             'regarding' => $this->regarding,

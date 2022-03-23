@@ -23,6 +23,7 @@ class Mail extends Model
         'mail_date',
         'date_received',
         'mail_category',
+        'mail_category_code',
         'mail_type_id',
         'mail_nature_id',
         'mail_security_id',

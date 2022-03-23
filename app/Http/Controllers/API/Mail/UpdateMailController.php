@@ -19,6 +19,10 @@ class UpdateMailController extends Controller
             'regarding' => ['required', 'string'],
             'mail_date' => ['required', 'date'],
             'date_received' => ['required', 'date'],
+            'mail_category_code' => [
+                Rule::requiredIf($mail->mail_category == 'incoming_mail'),
+                'in:A,W,S'
+            ],
             'mail_type_id' => [
                 Rule::requiredIf($mail->mail_category == 'official_memo'),
                 Rule::exists('params', 'id')->where(function($query) {
@@ -42,13 +46,16 @@ class UpdateMailController extends Controller
         $input['mail_type_id'] = $request->mail_type_id;
         $input['mail_nature_id'] = $request->mail_nature_id;
         $input['summary'] = $request->summary;
-
+        if($mail->mail_category == 'incoming_mail') {
+            $input['mail_category_code'] = $request->mail_category_code;
+        }
         $mail->update($input);
 
         // update log
         $user = $request->user();
         $user_id = ($user->role == 'assistant') ? $user->user_group()->first()->parent_id : $user->id;
         $mail->activity_log()->create([
+            'type' => 'mail',
             'user_id' => $user_id,
             'log' => 'update_mail',
         ]);

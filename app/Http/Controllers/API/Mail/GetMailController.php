@@ -16,7 +16,7 @@ class GetMailController extends Controller
     public function get (Request $request)
     {
         $request->validate([
-            'mail_category' => ['required', 'in:incoming_mail,official_memo'],
+            'mail_category' => ['required', 'in:incoming_mail,official_memo,tembusan,st_menteri'],
             'disposition' => ['nullable', 'in:yes,no'],
             'from_date' => ['nullable', 'date', 'before_or_equal:'. Carbon::now()->format('Y-m-d')],
             'until_date' => ['nullable', 'date', 'after_or_equal:' .$request->from_date, 'before_or_equal:'. Carbon::now()->format('Y-m-d')],

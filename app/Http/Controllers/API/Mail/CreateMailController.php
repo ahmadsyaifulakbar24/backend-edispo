@@ -21,7 +21,11 @@ class CreateMailController extends Controller
             'regarding' => ['required', 'string'],
             'mail_date' => ['required', 'date'],
             'date_received' => ['required', 'date'],
-            'mail_category' => ['required', 'in:incoming_mail,official_memo'],
+            'mail_category' => ['required', 'in:incoming_mail,official_memo,tembusan,st_menteri'],
+            'mail_category_code' => [
+                Rule::requiredIf($request->mail_category == 'incoming_mail'),
+                'in:A,W,S'
+            ],
             'mail_type_id' => [
                 Rule::requiredIf($request->mail_category == 'official_memo'),
                 Rule::exists('params', 'id')->where(function($query) {
@@ -51,6 +55,15 @@ class CreateMailController extends Controller
         $input['user_id'] = $user_id;
         
         $input['agenda_number'] = $this->max_agenda_number($user_id);
+        if($request->mail_category == 'incoming_mail') {
+            $input['mail_category_code'] = $request->mail_category_code;
+        } elseif($request->mail_category == 'official_memo') {
+            $input['mail_category_code'] = 'ND';
+        } elseif($request->mail_category == 'tembusan') {
+            $input['mail_category_code'] = 'T';
+        } elseif($request->mail_category == 'st_menteri') {
+            $input['mail_category_code'] = 'STM';
+        }
         $mail = Mail::create($input);
 
         foreach($request->addition as $addition) {

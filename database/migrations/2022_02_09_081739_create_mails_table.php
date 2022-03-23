@@ -22,7 +22,8 @@ class CreateMailsTable extends Migration
             $table->string('regarding');
             $table->date('mail_date');
             $table->date('date_received');
-            $table->enum('mail_category', ['incoming_mail', 'official_memo']);
+            $table->enum('mail_category', ['incoming_mail', 'official_memo', 'tembusan', 'st_menteri']);
+            $table->string('mail_category_code');
             $table->foreignUuid('mail_type_id')->nullable()->constrained('params')->onUpdate('cascade');
             $table->foreignUuid('mail_nature_id')->constrained('params')->onUpdate('cascade');
             $table->foreignUuid('mail_security_id')->constrained('params')->onUpdate('cascade');
