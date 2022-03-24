@@ -28,7 +28,7 @@ class User extends Authenticatable
         'nip',
         'gender',
         'phone_number',
-        'position_id',
+        'position',
         'position_name',
         'role',
         'photo',
@@ -77,10 +77,5 @@ class User extends Authenticatable
     public function getPhotoUrlAttribute()
     {
         return !empty($this->attributes['photo']) ? url('') . Storage::url($this->attributes['photo']) : null;
-    }
-
-    public function position()
-    {
-        return $this->belongsTo(Param::class, 'postition_id');
     }
 }

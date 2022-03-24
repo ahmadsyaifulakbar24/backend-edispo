@@ -23,7 +23,7 @@ class UserDetailResource extends JsonResource
             'nip' => $this->nip,
             'gender' => $this->gender,
             'phone_number' => $this->phone_number,
-            'position' => new ParamResource($this->position),
+            'position' => $this->position,
             'position_name' => $this->position_name,
             'role' => $this->role,
             'photo_url' => $this->photo_url,

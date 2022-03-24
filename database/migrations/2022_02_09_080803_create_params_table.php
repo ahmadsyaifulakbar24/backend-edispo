@@ -20,10 +20,6 @@ class CreateParamsTable extends Migration
             $table->string('param');
             $table->string('order')->nullable();
         });
-
-        Schema::table('users', function(Blueprint $table){ 
-            $table->foreign('position_id')->references('id')->on('users')->onUpdate('cascade');
-        });
     }
 
     /**
