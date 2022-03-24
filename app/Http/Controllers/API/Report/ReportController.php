@@ -25,7 +25,7 @@ class ReportController extends Controller
             'total_st_menteri' => Mail::where([['mail_category', 'st_menteri'], ['user_id', $request->user_id]])->count(),
             'total_incoming_disposition' => IncomingDisposition::where('user_id', $request->user_id)->count(),
             'total_invitation' => Agenda::where('user_id', $request->user_id)->count(),
-            'total_agenda' => Agenda::where([['user_id', $request->user_id], ['disposition', 0]])->count(),
+            'total_agenda' => Agenda::where([['user_id', $request->user_id], ['disposition', 1]])->count(),
             'total_out_disposition' => MailDisposition::where('sender_id', $request->user_id)->count(),
         ];
 
