@@ -24,7 +24,6 @@ class MailDispositionResource extends JsonResource
             'incoming_disposition' => new IncomingDispositionDetailResource($this->incoming_disposition),
             'agenda' => new AgendaDetailResource($this->agenda),
             'disposition_instruction' => DispositionInsturctionResource::collection($this->disposition_instruction),
-            // 'disposition_assignment' => SimpleDispositionAssignmentResource::collection($this->disposition_assignment),
             'disposition_assignment' => SimpleDispositionAssignmentResource::collection($this->disposition_assignment),
             'description' => $this->description,
             'confirmation' => $this->confirmation,

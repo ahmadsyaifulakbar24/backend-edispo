@@ -16,12 +16,15 @@ class CreateMailController extends Controller
     public function __invoke(Request $request)
     {
         $request->validate([
+            'mail_category' => ['required', 'in:incoming_mail,official_memo,tembusan,st_menteri'],
             'mail_number' => ['required', 'string'],
-            'mail_origin' => ['required', 'string'],
+            'mail_origin' => [
+                Rule::requiredIf($request->mail_category != 'st_menteri'), 
+                'string'
+            ],
             'regarding' => ['required', 'string'],
             'mail_date' => ['required', 'date'],
             'date_received' => ['required', 'date'],
-            'mail_category' => ['required', 'in:incoming_mail,official_memo,tembusan,st_menteri'],
             'mail_category_code' => [
                 Rule::requiredIf($request->mail_category == 'incoming_mail'),
                 'in:A,W,S'
@@ -62,6 +65,7 @@ class CreateMailController extends Controller
         } elseif($request->mail_category == 'tembusan') {
             $input['mail_category_code'] = 'T';
         } elseif($request->mail_category == 'st_menteri') {
+            $input['mail_origin'] = NULL;
             $input['mail_category_code'] = 'STM';
         }
         $mail = Mail::create($input);

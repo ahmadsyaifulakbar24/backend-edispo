@@ -61,7 +61,7 @@ class GetAgendaController extends Controller
                     ->orWhere('origin', 'like', '%'.$request->search.'%');
         }
 
-        $result = $agenda->orderBy('created_at', 'desc')->paginate($limit);
+        $result = $agenda->orderBy('created_at', 'asc')->paginate($limit);
         return ResponseFormatter::success(AgendaResource::collection($result)->response()->getData(true), 'success get agenda data');
     }
 

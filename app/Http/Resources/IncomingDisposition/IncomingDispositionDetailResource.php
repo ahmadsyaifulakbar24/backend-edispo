@@ -20,7 +20,7 @@ class IncomingDispositionDetailResource extends JsonResource
         return [
             'id' => $this->id,
             'user' => new UserResource($this->user),
-            'agenda_number' => sprintf('%04s', $this->agenda_number) . 'D',
+            'agenda_number' => sprintf('%04s', $this->agenda_number) . '-D',
             'mail_number' => $this->mail_number,
             'mail_origin' => $this->mail_origin,
             'regarding' => $this->regarding,
