@@ -18,7 +18,7 @@ class CreateMailsTable extends Migration
             $table->foreignUuid('user_id')->constrained('users')->onUpdate('cascade');
             $table->integer('agenda_number');
             $table->string('mail_number');
-            $table->string('mail_origin');
+            $table->string('mail_origin')->nullable();
             $table->string('regarding');
             $table->date('mail_date');
             $table->date('date_received');
