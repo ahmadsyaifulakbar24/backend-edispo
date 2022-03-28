@@ -88,6 +88,7 @@ Route::middleware(['auth:api'])->group(function() {
     
     Route::prefix('user')->group(function() {
         Route::get('/disposition', [AllUserController::class, 'disposition']);
+        Route::post('/reset_password', [AllUserController::class, 'reset_password']);
     });
 
     Route::prefix('activity_log')->group(function() {
