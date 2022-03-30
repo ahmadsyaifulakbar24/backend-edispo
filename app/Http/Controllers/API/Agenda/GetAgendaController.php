@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Agenda\AgendaDetailResource;
 use App\Http\Resources\Agenda\AgendaResource;
 use App\Models\Agenda;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -61,7 +60,7 @@ class GetAgendaController extends Controller
                     ->orWhere('origin', 'like', '%'.$request->search.'%');
         }
 
-        $result = $agenda->orderBy('created_at', 'asc')->paginate($limit);
+        $result = $agenda->orderBy('agenda_date', 'asc')->paginate($limit);
         return ResponseFormatter::success(AgendaResource::collection($result)->response()->getData(true), 'success get agenda data');
     }
 
