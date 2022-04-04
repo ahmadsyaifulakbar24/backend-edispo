@@ -177,7 +177,13 @@ class UserGroupSeeder extends Seeder
             ("f7dadccf-7774-4105-b445-e99ebca765f3", "4f3ccce6-dfbf-432f-a7bd-882249507c71", "97524e52-bf1c-46ce-b940-21efe98858d1", 12),
             ("f807fb63-8099-45ab-884e-34a33e0abfd1", "01614332-5f1a-47fc-b196-ad6b7c2143b6", "e4cc797e-3e13-4d0a-8fd8-ffcc8d33dcb3", NULL),
             ("fa47d6b6-ff27-463b-8d6c-18cc9e53e0a5", "04746798-88ae-495d-8cdf-1fd32fad47de", "869cfbc4-105e-4c58-8b46-98d138968a94", 10),
-            ("fbf7aea4-77c5-41c0-9213-75a6ce7d9fb1", "53111e48-931a-4ee8-a774-70fc754c10fc", "d497c821-104f-4793-9fa9-e497ec2e6499", NULL)
+            ("fbf7aea4-77c5-41c0-9213-75a6ce7d9fb1", "53111e48-931a-4ee8-a774-70fc754c10fc", "d497c821-104f-4793-9fa9-e497ec2e6499", NULL),
+            ("3af4897d-0dd6-447d-b353-746652feab86", "759fad79-23be-4276-8929-d8f5a274a374", "e5348fd6-d24f-4d04-abbe-45dfb95b9fb9", 1),
+            ("ed025439-73e4-4535-913b-680f3cdc225c", "283a1b19-1e3f-4f72-8182-d64153e85ff9", "e5348fd6-d24f-4d04-abbe-45dfb95b9fb9", 2),
+            ("13a83a28-41c7-40aa-8d3f-2316417d0bad", "559fe01c-57e8-4ac3-8c41-51114ff39b08", "e5348fd6-d24f-4d04-abbe-45dfb95b9fb9", 3),
+            ("6a81d913-5126-4de2-9c82-285908653bd2", "2f82298e-6c33-49d0-91d0-75311351e7e8", "e5348fd6-d24f-4d04-abbe-45dfb95b9fb9", 4),
+            ("b237b62e-d70a-4ad9-93cf-d280358bc9e6", "833fea12-d2bb-48cb-af08-c3bb4436d35d", "e5348fd6-d24f-4d04-abbe-45dfb95b9fb9", 5),
+            ("ebf2042e-4706-4138-9830-bc528719efca", "74a09463-9c4d-4811-ba11-1e4f3fe330a1", "e5348fd6-d24f-4d04-abbe-45dfb95b9fb9", 6);
         ');
     }
 }

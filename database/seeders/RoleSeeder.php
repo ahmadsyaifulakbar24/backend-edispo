@@ -33,5 +33,10 @@ class RoleSeeder extends Seeder
             'id' => '102',
             'role' => 'assistant'
         ]);
+
+        Role::create([
+            'id' => '103',
+            'role' => 'inspektur'
+        ]);
     }
 }
