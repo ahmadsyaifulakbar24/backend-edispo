@@ -64,6 +64,19 @@ class GetAgendaController extends Controller
         return ResponseFormatter::success(AgendaResource::collection($result)->response()->getData(true), 'success get agenda data');
     }
 
+    public function total_information(Request $request)
+    {
+        $request->validate([
+            'user_id' => ['required', 'exists:users,id']
+        ]);
+
+        $agenda = Agenda::select(
+            DB::raw("COUNT(IF(disposition = 1, disposition, null)) as disposition"),
+            DB::raw("COUNT(IF(disposition = 0, disposition, null)) as no_disposition"),
+        )->where('user_id', $request->user_id)->first();
+        return ResponseFormatter::success($agenda, 'success get total infomation agenda data');
+    }
+
     public function show(Agenda $agenda)
     {
         return ResponseFormatter::success(new AgendaDetailResource($agenda), 'success get agenda data');

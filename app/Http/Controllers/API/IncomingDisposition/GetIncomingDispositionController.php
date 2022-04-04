@@ -53,6 +53,19 @@ class GetIncomingDispositionController extends Controller
         return ResponseFormatter::success(IncomingDispositionResource::collection($result)->response()->getData(true), 'success get incoming disposition data');
     }
 
+    public function total_information(Request $request)
+    {
+        $request->validate([
+            'user_id' => ['required', 'exists:users,id']
+        ]);
+
+        $incoming_disposition = IncomingDisposition::select(
+            DB::raw("COUNT(IF(disposition = 1, disposition, null)) as disposition"),
+            DB::raw("COUNT(IF(disposition = 0, disposition, null)) as no_disposition"),
+        )->where('user_id', $request->user_id)->first();
+        return ResponseFormatter::success($incoming_disposition, 'success get total infomation incoming disposition data');
+    }
+
     public function show(IncomingDisposition $incoming_disposition)
     {
         return ResponseFormatter::success(new IncomingDispositionDetailResource($incoming_disposition));

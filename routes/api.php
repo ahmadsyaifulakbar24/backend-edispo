@@ -57,6 +57,7 @@ Route::middleware(['auth:api'])->group(function() {
 
     Route::prefix('mail')->group(function () {
         Route::get('/', [GetMailController::class, 'get']);
+        Route::get('/total_information', [GetMailController::class, 'total_information']);
         Route::get('/{mail:id}', [GetMailController::class, 'show']);
         Route::post('/', CreateMailController::class);
         Route::put('/{mail:id}', [UpdateMailController::class, 'update']);
@@ -66,6 +67,7 @@ Route::middleware(['auth:api'])->group(function() {
     Route::prefix('incoming_disposition')->group(function() {
         Route::post('', CreateIncomingDispositionController::class);
         Route::get('', [GetIncomingDispositionController::class, 'get']);
+        Route::get('total_information', [GetIncomingDispositionController::class, 'total_information']);
         Route::get('show/{incoming_disposition:id}', [GetIncomingDispositionController::class, 'show']);
         Route::put('/{incoming_disposition:id}', UpdateIncomingDispositionController::class);
         Route::delete('/{incoming_disposition:id}', DeleteIncomingDispositionController::class);
@@ -80,6 +82,7 @@ Route::middleware(['auth:api'])->group(function() {
 
     Route::prefix('agenda')->group(function() {
         Route::get('/', [GetAgendaController::class, 'get']);
+        Route::get('/total_information', [GetAgendaController::class, 'total_information']);
         Route::get('/{agenda:id}', [GetAgendaController::class, 'show']);
         Route::post('/', CreateAgendaController::class);
         Route::put('/{agenda:id}', UpdateAgendaController::class);

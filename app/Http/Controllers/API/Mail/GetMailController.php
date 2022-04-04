@@ -56,6 +56,23 @@ class GetMailController extends Controller
         return ResponseFormatter::success(MailResource::collection($result)->response()->getData(true), 'success get mail data');
     }
 
+    public function total_information(Request $request)
+    {
+        $request->validate([
+            'user_id' => ['required', 'exists:users,id'],
+            'mail_category' => ['required', 'in:incoming_mail,official_memo,tembusan,st_menteri']
+        ]);
+
+        $mail = Mail::select(
+            DB::raw("COUNT(IF(disposition = 1, disposition, null)) as disposition"),
+            DB::raw("COUNT(IF(disposition = 0, disposition, null)) as no_disposition"),
+        )->where([
+            ['user_id', $request->user_id],
+            ['mail_category', $request->mail_category]
+        ])->first();
+        return ResponseFormatter::success($mail, 'success get total infomation '.$request->mail_category.' data');
+    }
+
     public function show(Mail $mail)
     {
         return ResponseFormatter::success(new MailDetailResource($mail), 'success get email data');
