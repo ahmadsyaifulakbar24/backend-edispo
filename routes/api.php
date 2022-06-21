@@ -22,6 +22,7 @@ use App\Http\Controllers\API\MailDisposition\UpdateMailDispositionController;
 use App\Http\Controllers\API\Param\ParamController;
 use App\Http\Controllers\API\Report\ReportController;
 use App\Http\Controllers\API\User\AllUserController;
+use App\Http\Controllers\API\PDFController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -39,6 +40,13 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+
+Route::get('/', function () {
+    return response()->json(['name' => 'API Edisposisi', 'time' => now()]);
+});
+Route::get('login', function () {
+    return response()->json(['success' => false, 'message' => 'Anda butuh login untuk mengakses endpoint tersebut', 'time' => now()]);
+})->name('login');
 
 Route::post('/auth/login', LoginController::class);
 
@@ -102,4 +110,5 @@ Route::middleware(['auth:api'])->group(function() {
     Route::prefix('report')->group(function() {
         Route::get('total_data', [ReportController::class, 'get_total_data']);
     });
+    Route::get('pdf/{mail_disposition:id}', [PDFController::class, 'index']);
 });
