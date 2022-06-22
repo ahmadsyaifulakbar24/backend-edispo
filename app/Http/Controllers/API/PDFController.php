@@ -28,7 +28,7 @@ class PDFController extends Controller
     function index(Request $request, $id){
         $mailDisposition = $this->mail_disposition($id);
         $_path = 'assets/thumbnail_.jpg';
-        $path = public_path() . Storage::url($_path);
+        $path = public_path() . '/' . $_path;
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $data = file_get_contents($path);
 
