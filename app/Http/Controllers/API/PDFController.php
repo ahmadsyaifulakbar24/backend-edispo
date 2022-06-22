@@ -60,7 +60,7 @@ class PDFController extends Controller
         }
 
         $html = View::make('pdf', $data)->render();
-        return $html;
+        // return $html;
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadHTML($html);
         // return $pdf->stream($fileName . '.pdf', array("Attachment" => false));
