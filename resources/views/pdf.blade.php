@@ -8,6 +8,14 @@
                 box-sizing: border-box;
                 text-size-adjust: 100%;
             }
+            .grid-container {
+                display: grid;
+                grid-template-columns: auto auto auto auto;
+            }
+            .col-6 {
+                flex: 0 0 100%;
+                max-width: 50%;
+            }
             .table{
                 border-collapse:collapse;
                 width:100%
@@ -330,7 +338,12 @@
                                         @endif
                                         <span class="{{$cls}}"></span>
                                     </label>
-                                    <span class="css-1qs4hzm">{{ strtoupper($v->param) }} ({{substr($v->param, 0, 1)}})</span>
+                                    <span class="css-1qs4hzm">
+                                        {{-- {{ strtoupper($v->param) }} ({{substr($v->param, 0, 1)}}) --}}
+                                        @if (($v->param == 'Rahasia')) RAHASIA (R) @endif
+                                        @if (($v->param == 'Terbatas')) TERBATAS (T) @endif
+                                        @if (($v->param == 'Biasa')) TERBUKA/BIASA (B) @endif
+                                    </span>
                                 </div>
                             @endforeach
                         </td>
@@ -495,7 +508,6 @@
                     </tr>
                     <tr>
                         <td colspan="3">
-                            <table width="100%" class="no-border">
                                 <?php 
                                     $_assignment = $data != null && $data->disposition_assignment != null ? $data->disposition_assignment->toArray() : [];
                                     $internalAssignment=[];
@@ -509,49 +521,66 @@
                                             $externalAssignment[] = $v;
                                     }
                                     $i=1;
-                                    foreach($user_disposition->toArray('') as $k => $v){
-                                        $selected = array_key_exists($v['id'], $internalAssignment) ? true : false;
-                                        if($i%2!=0)
-                                            echo "<tr>";
-                                        echo '
-                                            <td style="padding:0;">
-                                                <div class="css-k008qs col-md-6">
-                                                    <label class="chk-container"><input type="checkbox" checked="checked" style="display:none"><span class="'.($selected ? 'checkmark' : 'uncheckmark').'"></span></label>
-                                                    <span class="css-1qs4hzm">'.$v['position_name'].'</span>
+
+                                    echo '<div style="display:flex">';
+                                        echo '<div class="col-6">';
+                                        foreach($user_disposition->toArray('') as $k => $v){
+                                            $selected = array_key_exists($v['id'], $internalAssignment) ? true : false;
+                                            if($i < 12) {
+                                                echo '
+                                                    <div class="css-k008qs">
+                                                        <label class="chk-container"><input type="checkbox" checked="checked" style="display:none"><span class="'.($selected ? 'checkmark' : 'uncheckmark').'"></span></label>
+                                                        <span class="css-1qs4hzm">'.$v['position_name'].'</span>
+                                                    </div>
+                                                ';
+                                            }
+                                            $i++;
+                                        }
+                                        echo '</div>';
+
+                                        $i2=1;
+                                        echo '<div class="col-6">';
+                                            foreach($user_disposition->toArray('') as $k => $v){
+                                                $selected = array_key_exists($v['id'], $internalAssignment) ? true : false;
+                                                if($i2 > 11) {
+                                                    echo '
+                                                        <div class="css-k008qs">
+                                                            <label class="chk-container"><input type="checkbox" checked="checked" style="display:none"><span class="'.($selected ? 'checkmark' : 'uncheckmark').'"></span></label>
+                                                            <span class="css-1qs4hzm">'.$v['position_name'].'</span>
+                                                        </div>
+                                                    ';
+                                                }
+                                                $i2++;
+                                            }
+                                            if(!empty($externalAssignment[0])) {
+                                                $assignment1 = !empty($externalAssignment[0]) ? $externalAssignment[0]["position_name"] : ".............................." ;
+                                                echo '
+                                                    <div class="css-k008qs">
+                                                        <label class="chk-container"><input type="checkbox" checked="checked" style="display:none"><span class="checkmark"></span></label>
+                                                        <span class="css-1qs4hzm">'. $assignment1 .'</span>
+                                                    </div>
+                                                ';
+                                            }
+                                            
+                                            if(!empty($externalAssignment[1])) {
+                                                $assignment2 = !empty($externalAssignment[1]) ? $externalAssignment[1]["position_name"] : ".............................." ;
+                                                echo '
+                                                    <div class="css-k008qs">
+                                                        <label class="chk-container"><input type="checkbox" checked="checked" style="display:none"><span class="checkmark"></span></label>
+                                                        <span class="css-1qs4hzm">'. $assignment2 .'</span>
+                                                    </div>
+                                                ';
+                                            }
+
+                                            echo '
+                                                <div class="css-k008qs">
+                                                    <label class="chk-container"><input type="checkbox" checked="checked" style="display:none"><span class="uncheckmark"></span></label>
+                                                    <span class="css-1qs4hzm">..............................</span>
                                                 </div>
-                                            </td>
-                                        ';
-                                        if($i%2==0)
-                                            echo "</tr>";
-                                        $i++;
-                                    }
-                                    foreach ($externalAssignment as $k => $v) {
-                                        if($i%2!=0)
-                                            echo "<tr>";
-                                        echo '
-                                            <td style="padding:0;">
-                                                <div class="css-k008qs col-md-6">
-                                                    <label class="chk-container"><input type="checkbox" checked="checked" style="display:none"><span class="checkmark"></span></label>
-                                                    <span class="css-1qs4hzm">'.$v['position_name'].'</span>
-                                                </div>
-                                            </td>
-                                        ';
-                                        if($i%2==0)
-                                            echo "</tr>";
-                                        $i++;
-                                    }
-                                    echo '
-                                    <td style="padding:0;">
-                                        <div class="css-k008qs col-md-6">
-                                            <label class="chk-container"><input type="checkbox" checked="checked" style="display:none"><span class="uncheckmark"></span></label>
-                                            <span class="css-1qs4hzm">..............................</span>
-                                        </div>
-                                    </td>
-                                    ';
-                                    if($i%2!=0)
-                                        echo "</tr>";
+                                            ';
+                                        echo '</div>';
+                                    echo '</div>';
                                 ?>
-                            </table>
                         </td>
                     </tr>
                     <tr>

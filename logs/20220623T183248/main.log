@@ -1,0 +1,7 @@
+[2022-06-23 18:32:48.143] [main] [info] window#load: attempt to load window (id: 1)
+[2022-06-23 18:32:48.152] [main] [info] update#setState idle
+[2022-06-23 18:32:48.185] [main] [info] ExtensionHostStarterWorker created
+[2022-06-23 18:32:48.748] [main] [info] Starting extension host with pid 50291 (fork() took 7 ms).
+[2022-06-23 18:32:48.748] [main] [info] ExtensionHostStarterWorker.start() took 9 ms.
+[2022-06-23 18:32:51.679] [main] [info] Waiting for extension host with pid 50291 to exit.
+[2022-06-23 18:32:51.713] [main] [info] Extension host with pid 50291 exited with code: 0, signal: null.
