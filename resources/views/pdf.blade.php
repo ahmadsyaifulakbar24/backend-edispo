@@ -8,10 +8,6 @@
                 box-sizing: border-box;
                 text-size-adjust: 100%;
             }
-            .grid-container {
-                display: grid;
-                grid-template-columns: auto auto auto auto;
-            }
             .col-6 {
                 flex: 0 0 100%;
                 max-width: 50%;
@@ -508,38 +504,42 @@
                     </tr>
                     <tr>
                         <td colspan="3">
-                                <?php 
-                                    $_assignment = $data != null && $data->disposition_assignment != null ? $data->disposition_assignment->toArray() : [];
-                                    $internalAssignment=[];
-                                    $externalAssignment=[];
+                            <?php 
+                                $_assignment = $data != null && $data->disposition_assignment != null ? $data->disposition_assignment->toArray() : [];
+                                $internalAssignment=[];
+                                $externalAssignment=[];
 
-                                    // echo json_encode($_assignment);
-                                    foreach ($_assignment as $k => $v) {
-                                        if($v['receiver_id'] != null)
-                                            $internalAssignment[$v['receiver_id']] = $v;
-                                        if($v['receiver_id'] == null)
-                                            $externalAssignment[] = $v;
-                                    }
-                                    $i=1;
+                                // echo json_encode($_assignment);
+                                foreach ($_assignment as $k => $v) {
+                                    if($v['receiver_id'] != null)
+                                        $internalAssignment[$v['receiver_id']] = $v;
+                                    if($v['receiver_id'] == null)
+                                        $externalAssignment[] = $v;
+                                }
+                                $i=1;
 
-                                    echo '<div style="display:flex">';
-                                        echo '<div class="col-6">';
-                                        foreach($user_disposition->toArray('') as $k => $v){
-                                            $selected = array_key_exists($v['id'], $internalAssignment) ? true : false;
-                                            if($i < 12) {
-                                                echo '
-                                                    <div class="css-k008qs">
-                                                        <label class="chk-container"><input type="checkbox" checked="checked" style="display:none"><span class="'.($selected ? 'checkmark' : 'uncheckmark').'"></span></label>
-                                                        <span class="css-1qs4hzm">'.$v['position_name'].'</span>
-                                                    </div>
-                                                ';
+                            ?>
+                            <table class="no-border">
+                                <tr>
+                                    <td>
+                                        <?php
+                                            foreach($user_disposition->toArray('') as $k => $v){
+                                                $selected = array_key_exists($v['id'], $internalAssignment) ? true : false;
+                                                if($i < 12) {
+                                                    echo '
+                                                        <div class="css-k008qs">
+                                                            <label class="chk-container"><input type="checkbox" checked="checked" style="display:none"><span class="'.($selected ? 'checkmark' : 'uncheckmark').'"></span></label>
+                                                            <span class="css-1qs4hzm">'.$v['position_name'].'</span>
+                                                        </div>
+                                                    ';
+                                                }
+                                                $i++;
                                             }
-                                            $i++;
-                                        }
-                                        echo '</div>';
-
-                                        $i2=1;
-                                        echo '<div class="col-6">';
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <?php
+                                            $i2=1;
                                             foreach($user_disposition->toArray('') as $k => $v){
                                                 $selected = array_key_exists($v['id'], $internalAssignment) ? true : false;
                                                 if($i2 > 11) {
@@ -570,17 +570,11 @@
                                                         <span class="css-1qs4hzm">'. $assignment2 .'</span>
                                                     </div>
                                                 ';
-                                            }
-
-                                            echo '
-                                                <div class="css-k008qs">
-                                                    <label class="chk-container"><input type="checkbox" checked="checked" style="display:none"><span class="uncheckmark"></span></label>
-                                                    <span class="css-1qs4hzm">..............................</span>
-                                                </div>
-                                            ';
-                                        echo '</div>';
-                                    echo '</div>';
-                                ?>
+                                            }    
+                                        ?>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                     <tr>
