@@ -7,6 +7,8 @@ use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Mail\MailDetailResource;
 use App\Models\Mail;
+use App\Models\User;
+use App\Notifications\AddNewMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -89,6 +91,11 @@ class CreateMailController extends Controller
             'type' => 'mail',
         ]);
 
+        // sent notification
+        if($user->role == 'assistant') {
+            $parent = User::find($user->user_group()->first()->parent_id);
+            $parent->notify(new AddNewMail($mail, $user, $parent));
+        }
         return ResponseFormatter::success(new MailDetailResource($mail), 'success create mail data');
     }
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\MailCreated;
 use App\Http\Controllers\API\ActivityLog\ActivityLogController;
 use App\Http\Controllers\API\Agenda\CreateAgendaController;
 use App\Http\Controllers\API\Agenda\DeleteAgendaController;
