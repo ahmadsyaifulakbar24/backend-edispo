@@ -20,6 +20,7 @@ use App\Http\Controllers\API\Mail\UpdateMailController;
 use App\Http\Controllers\API\MailDisposition\CreateMailDispositionController;
 use App\Http\Controllers\API\MailDisposition\GetMailDispositionController;
 use App\Http\Controllers\API\MailDisposition\UpdateMailDispositionController;
+use App\Http\Controllers\API\Notification\NotificationController;
 use App\Http\Controllers\API\Param\ParamController;
 use App\Http\Controllers\API\Report\ReportController;
 use App\Http\Controllers\API\User\AllUserController;
@@ -101,6 +102,8 @@ Route::middleware(['auth:api'])->group(function() {
     Route::prefix('user')->group(function() {
         Route::get('/disposition', [AllUserController::class, 'disposition']);
         Route::post('/reset_password', [AllUserController::class, 'reset_password']);
+        Route::get('/notification', [NotificationController::class, 'get_all']);
+        Route::get('/notification/read/{notification_id}', [NotificationController::class, 'read']);
     });
 
     Route::prefix('activity_log')->group(function() {
