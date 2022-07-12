@@ -28,6 +28,11 @@ class AddNewMail extends Notification implements ShouldQueue
         $this->to = $to;
     }
 
+    public function broadcastType()
+    {
+        return 'AddNewMail';
+    }
+
     /**
      * Get the notification's delivery channels.
      *
