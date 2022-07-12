@@ -28,11 +28,6 @@ class AddNewMail extends Notification implements ShouldQueue
         $this->to = $to;
     }
 
-    public function broadcastType()
-    {
-        return 'AddNewMail';
-    }
-
     /**
      * Get the notification's delivery channels.
      *
@@ -76,7 +71,8 @@ class AddNewMail extends Notification implements ShouldQueue
                 'id' => $this->to->id,
                 'name' => $this->to->name
             ],
-            'mail' => new MailResource($this->mail)
+            'mail' => new MailResource($this->mail),
+            'category' => 'AddNewMail'
         ];
     }
 
@@ -91,7 +87,8 @@ class AddNewMail extends Notification implements ShouldQueue
                 'id' => $this->to->id,
                 'name' => $this->to->name
             ],
-            'mail' => new MailResource($this->mail)
+            'mail' => new MailResource($this->mail),
+            'category' => 'AddNewMail'
         ]);
     }
 }
