@@ -104,6 +104,7 @@ Route::middleware(['auth:api'])->group(function() {
         Route::post('/reset_password', [AllUserController::class, 'reset_password']);
         Route::get('/notification', [NotificationController::class, 'get_all']);
         Route::get('/notification/read/{notification_id}', [NotificationController::class, 'read']);
+        Route::get('/notification/count_unread/', [NotificationController::class, 'count_unread']);
     });
 
     Route::prefix('activity_log')->group(function() {
