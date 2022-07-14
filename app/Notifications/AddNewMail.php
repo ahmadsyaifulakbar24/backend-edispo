@@ -76,19 +76,19 @@ class AddNewMail extends Notification implements ShouldQueue
         ];
     }
 
-    // public function toBroadcast($notifiable)
-    // {
-    //     return new BroadcastMessage([
-    //         'from' => [
-    //             'id' => $this->from->id,
-    //             'name' => $this->from->name
-    //         ],
-    //         'to' => [
-    //             'id' => $this->to->id,
-    //             'name' => $this->to->name
-    //         ],
-    //         'mail' => new MailResource($this->mail),
-    //         'category' => 'AddNewMail'
-    //     ]);
-    // }
+    public function toBroadcast($notifiable)
+    {
+        return new BroadcastMessage([
+            'from' => [
+                'id' => $this->from->id,
+                'name' => $this->from->name
+            ],
+            'to' => [
+                'id' => $this->to->id,
+                'name' => $this->to->name
+            ],
+            'mail' => new MailResource($this->mail),
+            'category' => 'AddNewMail'
+        ]);
+    }
 }
