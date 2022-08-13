@@ -25,7 +25,7 @@ class LoginController extends Controller
             if(!Auth::attempt(['username' => $request->username, 'password' => $request->password, 'active' => 1])) {
                 return ResponseFormatter::error([
                     'message' => 'Unauthorized'
-                ], 'Authentication Failed', 500);
+                ], 'Authentication Failed', 422);
             }
 
             // Jika Hash atau password tidak sesuai

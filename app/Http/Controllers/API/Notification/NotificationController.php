@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\Notification;
 
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Notification\NotificationResource;
 use App\Models\User;
 use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ class NotificationController extends Controller
     public function get_all(Request $request)
     {
         $user = User::find($request->user()->id);
-        return ResponseFormatter::success($user->unreadNotifications, 'success get notification data');
+        return ResponseFormatter::success(NotificationResource::collection($user->unreadNotifications), 'success get notification data');
     }
 
     public function count_unread(Request $request) {
