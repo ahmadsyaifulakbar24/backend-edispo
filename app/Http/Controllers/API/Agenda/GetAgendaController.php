@@ -18,7 +18,7 @@ class GetAgendaController extends Controller
         $request->validate([
             'user_id' => ['required', 'exists:users,id'],
             'disposition' => ['nullable', 'in:yes,no'],
-            'date_type' => ['nullable', 'in:created_at,agenda_date'],
+            'date_type' => ['nullable', 'in:created_at,agenda_date,date'],
             'from_date' => [
                 Rule::requiredIf(!empty($request->date_type)), 
                 'date'
