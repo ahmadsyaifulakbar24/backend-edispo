@@ -40,7 +40,7 @@ class CreateMailDispositionController extends Controller
 
             // assignments
             'assignments' => [
-                Rule::requiredIf($request->confirmation != 'hadir'),
+                Rule::requiredIf(!empty($request->confirmation)),
                 'array'
             ],
             'assignments.*.position_name' => ['required_with:assignments', 'string'],

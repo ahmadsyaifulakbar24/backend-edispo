@@ -38,4 +38,9 @@ class Agenda extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function file_manager()
+    {
+        return $this->hasMany(FileManager::class, 'agenda_id');
+    }
 }
