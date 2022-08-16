@@ -25,6 +25,7 @@ class GetIncomingDispositionController extends Controller
         ]);
         $limit = $request->input('limit', 10);
         $incoming_disposition = IncomingDisposition::where('user_id', $request->user_id);
+        $search = $request->search;
 
         if($request->disposition) {
             if($request->disposition == 'yes') {
@@ -43,10 +44,12 @@ class GetIncomingDispositionController extends Controller
             $incoming_disposition->where(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"), '<=', $request->until_date);
         }
 
-        if($request->search) {
-            $incoming_disposition->where('mail_number', 'like', '%'.$request->search.'%')
-                                ->orWhere('regarding', 'like', '%'.$request->search.'%')
-                                ->orWhere('mail_origin', 'like', '%'.$request->search.'%');
+        if($search) {
+            $incoming_disposition->where(function($query) use ($search) {
+                $query->where('mail_number', 'like', '%'.$search.'%')
+                                    ->orWhere('regarding', 'like', '%'.$search.'%')
+                                    ->orWhere('mail_origin', 'like', '%'.$search.'%');
+            });
         }
 
         $result = $incoming_disposition->orderBy('created_at', 'desc')->paginate($limit);

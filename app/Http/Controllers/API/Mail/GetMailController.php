@@ -24,6 +24,7 @@ class GetMailController extends Controller
             'limit' => ['nullable', 'integer']
         ]);
         $limit = $request->input('limit', 10);
+        $search = $request->search;
         $mail = Mail::where('mail_category', $request->mail_category);
 
         $user = $request->user();
@@ -47,10 +48,12 @@ class GetMailController extends Controller
             $mail->where(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"), '<=', $request->until_date);
         }
 
-        if($request->search) {
-            $mail->where('mail_number', 'like', '%'.$request->search.'%')
-                    ->orWhere('regarding', 'like', '%'.$request->search.'%')
-                    ->orWhere('mail_origin', 'like', '%'.$request->search.'%');
+        if($search) {
+            $mail->where(function($query) use ($search) {
+                $query->where('mail_number', 'like', '%'.$search.'%')
+                        ->orWhere('regarding', 'like', '%'.$search.'%')
+                        ->orWhere('mail_origin', 'like', '%'.$search.'%');
+            });
         }
         $result = $mail->orderBy('created_at', 'desc')->paginate($limit);
         return ResponseFormatter::success(MailResource::collection($result)->response()->getData(true), 'success get mail data');
