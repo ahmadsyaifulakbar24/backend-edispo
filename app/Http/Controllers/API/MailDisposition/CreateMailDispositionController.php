@@ -97,17 +97,17 @@ class CreateMailDispositionController extends Controller
         $input_log['type'] = $request->type;
         $log = ActivityLog::create($input_log);
         
-        if($request->confirmation != 'hadir') {
-            foreach($request->assignments as $assignment) {
-                $assignments[] = [
-                    'activity_log_id' => $log->id,
-                    'receiver_id' => !empty($assignment['receiver_id']) ? $assignment['receiver_id'] : null,
-                    'position_name' => $assignment['position_name'],
-                    'read' => 0,
-                ];
-            }
-            $mail_disposition->disposition_assignment()->createMany($assignments);
+        // create assignment
+        foreach($request->assignments as $assignment) {
+            $assignments[] = [
+                'activity_log_id' => $log->id,
+                'receiver_id' => !empty($assignment['receiver_id']) ? $assignment['receiver_id'] : null,
+                'position_name' => $assignment['position_name'],
+                'read' => 0,
+            ];
         }
+        $mail_disposition->disposition_assignment()->createMany($assignments);
+        
         if($request->type != 'agenda') {
             $mail_disposition->disposition_instruction()->createMany($request->instruction);
         }
