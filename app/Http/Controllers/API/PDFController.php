@@ -27,6 +27,11 @@ class PDFController extends Controller
 
     function index(Request $request, $id){
         $mailDisposition = $this->mail_disposition($id);
+        if(empty($mailDisposition)) {
+            return ResponseFormatter::error([
+                'message' => 'data not foud'
+            ], 'error get mail disposition data', 404);
+        }
         $_path = 'assets/thumbnail_.jpg';
         $path = public_path() . '/' . $_path;
         $type = pathinfo($path, PATHINFO_EXTENSION);
@@ -98,11 +103,6 @@ class PDFController extends Controller
 
     private function mail_disposition($id){
         $mail_disposition = MailDisposition::find($id);
-        if(!empty($mail_disposition)) {
-            return ResponseFormatter::error([
-                'message' => 'data not foud'
-            ], 'error get mail disposition data', 422);
-        }
-        return new MailDispositionResource($mail_disposition);
+        return $mail_disposition ? new MailDispositionResource($mail_disposition) : null;
     }
 }
