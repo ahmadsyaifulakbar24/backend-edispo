@@ -27,6 +27,7 @@ class AgendaDetailResource extends JsonResource
             'date' => $this->date,
             'location' => $this->location,
             'description' => $this->description,
+            'document' => !empty($this->file_manager()->first()->path_url) ? $this->file_manager()->first()->path_url : null,
             'disposition' => $this->disposition,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

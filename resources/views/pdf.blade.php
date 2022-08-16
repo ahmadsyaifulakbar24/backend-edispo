@@ -306,7 +306,7 @@
                         </td>
                         <td width="70%" align="center">
                             <p class="css-1pb8r2m">KEMENTERIAN KOPERASI DAN UKM <br>REPUBLIK INDONESIA </p>
-                            <h6 class="css-f21qwv">Sekretaris Kementerian</h6>
+                            <h6 class="css-f21qwv">{{ $data->mail->user->position_name }}</h6>
                             <p class="css-2lmuay">LEMBAR DISPOSISI</p>
                         </td>
                     </tr>

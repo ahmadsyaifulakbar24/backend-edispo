@@ -18,7 +18,7 @@ class GetAgendaController extends Controller
         $request->validate([
             'user_id' => ['required', 'exists:users,id'],
             'disposition' => ['nullable', 'in:yes,no'],
-            'date_type' => ['nullable', 'in:created_at,agenda_date'],
+            'date_type' => ['nullable', 'in:created_at,agenda_date,date'],
             'from_date' => [
                 Rule::requiredIf(!empty($request->date_type)), 
                 'date'
@@ -32,6 +32,7 @@ class GetAgendaController extends Controller
         ]);
 
         $limit = $request->input('limit', 10);
+        $search = $request->search;
         
         $agenda = Agenda::where('user_id', $request->user_id);
         
@@ -54,10 +55,12 @@ class GetAgendaController extends Controller
             }
         }
 
-        if($request->search) {
-            $agenda->where('mail_number', 'like', '%'.$request->search.'%')
-                    ->orWhere('regarding', 'like', '%'.$request->search.'%')
-                    ->orWhere('origin', 'like', '%'.$request->search.'%');
+        if($search) {
+            $agenda->where(function($query) use ($search) {
+                $query->where('mail_number', 'like', '%'.$search.'%')
+                        ->orWhere('regarding', 'like', '%'.$search.'%')
+                        ->orWhere('origin', 'like', '%'.$search.'%');
+            });
         }
 
         $result = $agenda->orderBy('agenda_date', 'asc')->paginate($limit);

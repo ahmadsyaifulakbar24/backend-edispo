@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\Agenda;
 
+use App\Helpers\FileHelpers;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Agenda\AgendaDetailResource;
@@ -23,6 +24,7 @@ class CreateAgendaController extends Controller
             'date' => ['required', 'date_format:Y/m/d H:i:s'],
             'location' => ['required', 'string'],
             'description' => ['required', 'string'],
+            'document' => ['required', 'file'],
         ]);   
         
         $input = $request->all();
@@ -32,6 +34,13 @@ class CreateAgendaController extends Controller
         $input['agenda_number'] = $this->max_agenda_number($user->id);
 
         $agenda = Agenda::create($input);
+        $document_name = $request->document->getClientOriginalName();
+        $document_path = FileHelpers::upload_file('agenda', $request->document);
+        $agenda->file_manager()->create([
+            'type' => 'agenda',
+            'path' => $document_path,
+            'file_name' => $document_name,
+        ]);
         return ResponseFormatter::success(new AgendaDetailResource($agenda), 'success create agenda data');
     }
 
