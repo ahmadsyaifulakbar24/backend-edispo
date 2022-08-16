@@ -98,6 +98,11 @@ class PDFController extends Controller
 
     private function mail_disposition($id){
         $mail_disposition = MailDisposition::find($id);
+        if(!empty($mail_disposition)) {
+            return ResponseFormatter::error([
+                'message' => 'data not foud'
+            ], 'error get mail disposition data', 422);
+        }
         return new MailDispositionResource($mail_disposition);
     }
 }
