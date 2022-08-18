@@ -21,9 +21,11 @@ class GetMailDispositionController extends Controller
             'user_id' => ['required', 'exists:users,id'],
             'from_date' => ['nullable', 'date', 'before_or_equal:'. Carbon::now()->format('Y-m-d')],
             'until_date' => ['nullable', 'date', 'after_or_equal:' .$request->from_date, 'before_or_equal:'. Carbon::now()->format('Y-m-d')],
+            'search' => ['nullable', 'string'],
             'limit' => ['nullable', 'integer'],
         ]);
         $limit = $request->input('limit', 10);
+        $search = $request->search;
         $mail_disposition = MailDisposition::where('sender_id', $request->user_id);
 
         if($request->from_date) {
@@ -32,6 +34,21 @@ class GetMailDispositionController extends Controller
 
         if($request->until_date) {
             $mail_disposition->where(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"), '<=', $request->until_date);
+        }
+
+        if($search) {
+            $mail_disposition->where(function($query) use ($search) {
+                $query->whereHas('mail', function($sub_query) use ($search) {
+                    $sub_query->where('mail_number', 'like', '%'.$search.'%')
+                        ->orWhere('regarding', 'like', '%'.$search.'%')
+                        ->orWhere('mail_origin', 'like', '%'.$search.'%');
+                })
+                ->orWhereHas('agenda', function($sub_query) use ($search) {
+                    $sub_query->where('mail_number', 'like', '%'.$search.'%')
+                        ->orWhere('regarding', 'like', '%'.$search.'%')
+                        ->orWhere('origin', 'like', '%'.$search.'%');
+                });
+            });
         }
         
         $result = $mail_disposition->orderBy('created_at', 'desc')->paginate($limit);
