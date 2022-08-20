@@ -11,7 +11,7 @@ class FindSuperior
     public static function superior($user)
     {
         if($user->role == 'assistant') {
-            $user_id = $user->user_group()->where('superior', 1)->parent_id;
+            $user_id = $user->user_group()->where('superior', 1)->first()->parent_id;
         } else {
             $user_id = $user->id;
         }

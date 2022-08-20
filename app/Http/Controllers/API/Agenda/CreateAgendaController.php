@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Agenda;
 
 use App\Helpers\FileHelpers;
+use App\Helpers\FindSuperior;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Agenda\AgendaDetailResource;
@@ -29,7 +30,7 @@ class CreateAgendaController extends Controller
         
         $input = $request->all();
         $user = User::find($request->user()->id);
-        $user_id = ($user->role == 'assistant') ? $user->user_group()->first()->parent_id : $user->id;
+        $user_id = FindSuperior::superior($user);
         $input['user_id'] = $user_id;
         $input['agenda_number'] = $this->max_agenda_number($user->id);
 

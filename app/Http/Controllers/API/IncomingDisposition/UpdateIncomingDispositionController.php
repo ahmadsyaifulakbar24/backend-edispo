@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\IncomingDisposition;
 
+use App\Helpers\FindSuperior;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\IncomingDisposition\IncomingDispositionDetailResource;
@@ -60,7 +61,7 @@ class UpdateIncomingDispositionController extends Controller
 
         // create log
         $user = $request->user();
-        $user_id = ($user->role == 'assistant') ? $user->user_group()->first()->parent_id : $user->id;
+        $user_id = FindSuperior::superior($user);
         $incoming_disposition->activity_log()->create([
             'user_id' => $user_id,
             'type' => 'incoming_disposition',

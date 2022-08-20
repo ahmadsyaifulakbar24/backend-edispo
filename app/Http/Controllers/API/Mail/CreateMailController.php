@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Mail;
 
 use App\Helpers\FileHelpers;
+use App\Helpers\FindSuperior;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Mail\MailDetailResource;
@@ -56,7 +57,7 @@ class CreateMailController extends Controller
 
         $input = $request->all();
         $user = $request->user();
-        $user_id = ($user->role == 'assistant') ? $user->user_group()->first()->parent_id : $user->id;
+        $user_id = FindSuperior::superior($user);
         $input['user_id'] = $user_id;
         
         $input['agenda_number'] = $this->max_agenda_number($user_id);
@@ -93,7 +94,8 @@ class CreateMailController extends Controller
 
         // sent notification
         if($user->role == 'assistant') {
-            $parent = User::find($user->user_group()->first()->parent_id);
+            $parent_id = FindSuperior::superior($user);
+            $parent = User::find($parent_id);
             $parent->notify(new AddNewMail($mail, $user, $parent));
         }
         return ResponseFormatter::success(new MailDetailResource($mail), 'success create mail data');

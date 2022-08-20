@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\Mail;
 
+use App\Helpers\FindSuperior;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Mail\MailDetailResource;
@@ -59,7 +60,7 @@ class UpdateMailController extends Controller
 
         // update log
         $user = $request->user();
-        $user_id = ($user->role == 'assistant') ? $user->user_group()->first()->parent_id : $user->id;
+        $user_id = FindSuperior::superior($user);
         $mail->activity_log()->create([
             'type' => 'mail',
             'user_id' => $user_id,
