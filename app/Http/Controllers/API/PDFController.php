@@ -74,7 +74,7 @@ class PDFController extends Controller
         Storage::disk('public')->put($disposition_file_name, $pdf->output());
         $file_path1 = Storage::url($disposition_file_name);
         
-        // return $pdf->download($fileName . '.pdf');
+        // $pdf->download()->getOriginalContent();
         $fileName . '.pdf';
 
         $mail_disposition = MailDisposition::find($id);
@@ -94,7 +94,6 @@ class PDFController extends Controller
         $pdfmerger->merge();
         $pdfmerger->save(public_path($fileName));
         Storage::disk('public')->delete($disposition_file_name);
-        // return $pdfmerger->download();
         return response()->download(public_path($fileName));
     }
 
