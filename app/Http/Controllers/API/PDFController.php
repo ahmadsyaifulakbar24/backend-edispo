@@ -94,7 +94,7 @@ class PDFController extends Controller
         $pdfmerger->merge();
         $pdfmerger->save(public_path($fileName));
         Storage::disk('public')->delete($disposition_file_name);
-        return $pdf->download();
+        return $pdfmerger->download();
         // return response()->download(public_path($fileName));
     }
 
