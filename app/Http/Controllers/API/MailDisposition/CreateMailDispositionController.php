@@ -53,7 +53,7 @@ class CreateMailDispositionController extends Controller
 
             // instruction
             'instruction' => [
-                Rule::requiredIf($request->type != 'agenda'),
+                'required',
                 'array'
             ],
             'instruction.*.instruction_id' => [
@@ -108,9 +108,7 @@ class CreateMailDispositionController extends Controller
         }
         $mail_disposition->disposition_assignment()->createMany($assignments);
         
-        if($request->type != 'agenda') {
-            $mail_disposition->disposition_instruction()->createMany($request->instruction);
-        }
+        $mail_disposition->disposition_instruction()->createMany($request->instruction);
         return ResponseFormatter::success(new MailDispositionResource($mail_disposition), 'success create mail disposition data');
     }
 }
