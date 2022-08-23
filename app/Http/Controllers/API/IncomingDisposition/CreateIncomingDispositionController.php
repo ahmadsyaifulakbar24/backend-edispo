@@ -8,6 +8,8 @@ use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\IncomingDisposition\IncomingDispositionDetailResource;
 use App\Models\IncomingDisposition;
+use App\Models\User;
+use App\Notifications\AddNewIncomingDisposition;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -87,6 +89,13 @@ class CreateIncomingDispositionController extends Controller
             'log' => 'upload_incoming_disposition',
         ]);
 
+        // sent notification
+        if($user->role == 'assistant') {
+            $parent_id = FindSuperior::superior($user);
+            $parent = User::find($parent_id);
+            $parent->notify(new AddNewIncomingDisposition($incoming_disposition, $user, $parent));
+        }
+        
         return ResponseFormatter::success(new IncomingDispositionDetailResource($incoming_disposition), 'success get incoming disposition data');
     }
 
