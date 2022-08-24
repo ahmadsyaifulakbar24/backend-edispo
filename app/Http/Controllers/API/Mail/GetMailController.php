@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\Mail;
 
+use App\Helpers\FindSuperior;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Mail\MailDetailResource;
@@ -28,7 +29,7 @@ class GetMailController extends Controller
         $mail = Mail::where('mail_category', $request->mail_category);
 
         $user = $request->user();
-        $user_id = ($user->role == 'assistant') ? $user->user_group()->first()->parent_id : $user->id;
+        $user_id = FindSuperior::superior($user);
         $mail->where('user_id', $user_id);
         
         if($request->disposition) {

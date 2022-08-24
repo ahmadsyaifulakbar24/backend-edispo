@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\API\Agenda;
 
 use App\Helpers\FileHelpers;
+use App\Helpers\FindSuperior;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Agenda\AgendaDetailResource;
 use App\Models\Agenda;
 use App\Models\User;
+use App\Notifications\AddNewAgenda;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -29,7 +31,7 @@ class CreateAgendaController extends Controller
         
         $input = $request->all();
         $user = User::find($request->user()->id);
-        $user_id = ($user->role == 'assistant') ? $user->user_group()->first()->parent_id : $user->id;
+        $user_id = FindSuperior::superior($user);
         $input['user_id'] = $user_id;
         $input['agenda_number'] = $this->max_agenda_number($user->id);
 
@@ -41,6 +43,13 @@ class CreateAgendaController extends Controller
             'path' => $document_path,
             'file_name' => $document_name,
         ]);
+
+        // sent notification 
+        if($user->role == 'assistant') {
+            $parent_id = FindSuperior::superior($user);
+            $parent = User::find($parent_id);
+            $parent->notify(new AddNewAgenda($agenda, $user, $parent));
+        }
         return ResponseFormatter::success(new AgendaDetailResource($agenda), 'success create agenda data');
     }
 

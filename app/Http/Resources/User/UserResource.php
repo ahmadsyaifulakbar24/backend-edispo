@@ -16,7 +16,7 @@ class UserResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => ($this->role == 'assistant') ? $this->user_group()->first()->parent_id : $this->id ,
+            'id' => ($this->role == 'assistant') ? $this->user_group()->where('superior', 1)->first()->parent_id : $this->id,
             'name' => $this->name,
             'username' => $this->username,
             'email' => $this->email,

@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use View;
 use App;
+use Carbon\Carbon;
+use Webklex\PDFMerger\Facades\PDFMergerFacade as PDFMerger;
 
 class PDFController extends Controller
 {
@@ -54,7 +56,7 @@ class PDFController extends Controller
             ],
         ];
 
-        $filename = "disposisi";
+        $fileName = "disposisi";
         if($mailDisposition != null){
             if($mailDisposition != null && $mailDisposition->mail != null)
                 $fileName = sprintf("%04d", $mailDisposition->mail->agenda_number) . "-" . $mailDisposition->mail->mail_category_code;
@@ -67,8 +69,32 @@ class PDFController extends Controller
         $html = View::make('pdf', $data)->render();
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadHTML($html);
-        // return $pdf->stream($fileName . '.pdf', array("Attachment" => false));
-        return $pdf->download($fileName . '.pdf');
+        $current = Carbon::now()->format('ymdHis');
+        $disposition_file_name = 'disposition/'.$current.'.pdf';
+        Storage::disk('public')->put($disposition_file_name, $pdf->output());
+        $file_path1 = Storage::url($disposition_file_name);
+        
+        // $pdf->download()->getOriginalContent();
+        $fileName . '.pdf';
+
+        $mail_disposition = MailDisposition::find($id);
+        if(!empty($mail_disposition->mail_id)) {
+            $file_path2 = Storage::url($mail_disposition->mail->file_manager->first()->path);
+        }  else {
+            $file_path2 = Storage::url($mail_disposition->agenda->file_manager->first()->path);
+        }
+        // merge pdf
+        $pdfmerger = PDFMerger::init();
+        $file1 = public_path($file_path1);
+        $file2 = public_path($file_path2);
+        
+        $pdfmerger->addPDF($file1, 'all');
+        $pdfmerger->addPDF($file2, 'all');
+
+        $pdfmerger->merge();
+        $pdfmerger->save(public_path($fileName));
+        Storage::disk('public')->delete($disposition_file_name);
+        return response()->download(public_path($fileName));
     }
 
     private function user_disposition(Request $request){
