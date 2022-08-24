@@ -1,7 +1,7 @@
 /node_modules
 /public/hot
 /public/storage
-# /public/disposition_download/
+/public/disposition_download/
 !/public/disposition_download/*.gitkeep
 /storage/*.key
 /vendor
