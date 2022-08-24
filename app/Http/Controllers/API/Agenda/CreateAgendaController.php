@@ -33,7 +33,7 @@ class CreateAgendaController extends Controller
         $user = User::find($request->user()->id);
         $user_id = FindSuperior::superior($user);
         $input['user_id'] = $user_id;
-        $input['agenda_number'] = $this->max_agenda_number($user->id);
+        $input['agenda_number'] = $this->max_agenda_number($user_id);
 
         $agenda = Agenda::create($input);
         $document_name = $request->document->getClientOriginalName();

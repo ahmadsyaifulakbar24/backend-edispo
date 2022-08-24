@@ -306,7 +306,18 @@
                         </td>
                         <td width="70%" align="center">
                             <p class="css-1pb8r2m">KEMENTERIAN KOPERASI DAN UKM <br>REPUBLIK INDONESIA </p>
-                            <h6 class="css-f21qwv">{{ (!empty($data->mail)) ? $data->mail->user->position_name : $data->agenda->user->position_name }}</h6>
+                            <?php
+                                if(!empty($data->mail)) {
+                                    $position_name = $data->mail->user->position_name;
+                                } else if($data->agenda) {
+                                    $position_name = $data->agenda->user->position_name;
+                                } else if($data->incoming_disposition) {
+                                    $position_name = $data->incoming_disposition->user->position_name;
+                                } else {
+                                    $position_name = 'Tidak Ada';
+                                }
+                            ?>
+                            <h6 class="css-f21qwv">{{ $position_name }}</h6>
                             <p class="css-2lmuay">LEMBAR DISPOSISI</p>
                         </td>
                     </tr>

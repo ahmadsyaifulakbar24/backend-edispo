@@ -80,8 +80,10 @@ class PDFController extends Controller
         $mail_disposition = MailDisposition::find($id);
         if(!empty($mail_disposition->mail_id)) {
             $file_path2 = Storage::url($mail_disposition->mail->file_manager->first()->path);
-        }  else {
+        }  else if(!empty($mail_disposition->agenda_id)) {
             $file_path2 = Storage::url($mail_disposition->agenda->file_manager->first()->path);
+        } else if(!empty($mail_disposition->incoming_disposition_id)){
+            $file_path2 = Storage::url($mail_disposition->incoming_disposition->file_manager->first()->path);
         }
         // merge pdf
         $pdfmerger = PDFMerger::init();
