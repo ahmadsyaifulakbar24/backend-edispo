@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1fe8c582507ac4bcaba2bc4cf75c0c7a",
+    "content-hash": "e40d4c1dd64c54e03e0acde8056d2faf",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1219,6 +1219,73 @@
                 }
             ],
             "time": "2022-06-20T21:43:11+00:00"
+        },
+        {
+            "name": "laraben/laravel-pdfmerger",
+            "version": "1.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laraben/laravel-pdfmerger.git",
+                "reference": "5b50391f02d03bf3d65e968080a75e5908859664"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laraben/laravel-pdfmerger/zipball/5b50391f02d03bf3d65e968080a75e5908859664",
+                "reference": "5b50391f02d03bf3d65e968080a75e5908859664",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": ">=5.0",
+                "php": ">=7.3",
+                "setasign/fpdf": "1.8.*",
+                "setasign/fpdi": "^2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*",
+                "scrutinizer/ocular": "~1.1",
+                "squizlabs/php_codesniffer": "~2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laraben\\PDFMerger\\": "src/PDFMerger"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Malte Goldenbaum",
+                    "email": "github@webklex.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Ben Laraben",
+                    "email": "info@laraben.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Generic PDF merger for Laravel",
+            "homepage": "https://github.com/laraben/laravel-pdfmerger",
+            "keywords": [
+                "laraben",
+                "laravel",
+                "merger",
+                "pdf",
+                "pdfmerger",
+                "webklex"
+            ],
+            "support": {
+                "source": "https://github.com/laraben/laravel-pdfmerger/tree/1.3.1"
+            },
+            "time": "2021-11-23T13:01:12+00:00"
         },
         {
             "name": "laravel/framework",
@@ -7016,68 +7083,6 @@
                 }
             ],
             "time": "2022-01-24T18:55:24+00:00"
-        },
-        {
-            "name": "webklex/laravel-pdfmerger",
-            "version": "1.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Webklex/laravel-pdfmerger.git",
-                "reference": "20111ef19f3951f58c9b9c3b0615cb0ebdb08d66"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Webklex/laravel-pdfmerger/zipball/20111ef19f3951f58c9b9c3b0615cb0ebdb08d66",
-                "reference": "20111ef19f3951f58c9b9c3b0615cb0ebdb08d66",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": ">=5.0",
-                "php": ">=5.5.9",
-                "setasign/fpdf": "1.8.*",
-                "setasign/fpdi": "^2.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "4.*",
-                "scrutinizer/ocular": "~1.1",
-                "squizlabs/php_codesniffer": "~2.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Webklex\\PDFMerger\\": "src/PDFMerger"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Malte Goldenbaum",
-                    "email": "github@webklex.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Generic PDF merger for Laravel",
-            "homepage": "https://github.com/webklex/pdfmerger",
-            "keywords": [
-                "laravel",
-                "merger",
-                "pdf",
-                "pdfmerger",
-                "webklex"
-            ],
-            "support": {
-                "issues": "https://github.com/Webklex/laravel-pdfmerger/issues",
-                "source": "https://github.com/Webklex/laravel-pdfmerger/tree/1.3.0"
-            },
-            "time": "2021-10-25T14:10:42+00:00"
         },
         {
             "name": "webmozart/assert",
