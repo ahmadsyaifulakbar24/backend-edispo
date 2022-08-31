@@ -27,7 +27,7 @@ class NotificationController extends Controller
     {
         $user = User::find($request->user()->id);
         $notification = $user->notifications()->where('id', $notification_id)->first();
-        $notification->update([ 'read_at' => now()]);
+        // $notification->update([ 'read_at' => now()]);
         return ResponseFormatter::success($notification, 'success mark as read notification');
     }
 }
