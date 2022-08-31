@@ -10,6 +10,7 @@ use App\Models\Agenda;
 use App\Models\IncomingDisposition;
 use App\Models\Mail;
 use App\Models\MailDisposition;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -70,28 +71,39 @@ class CreateMailDispositionController extends Controller
             'agenda_id',
             'confirmation'
         ]);
-
+        $user = User::find($request->user()->id);
+        
         if($request->type == 'mail') {
             $mail = Mail::find($request->mail_id);
             $mail->update(['disposition' => 1]);
             $input['mail_id'] = $request->mail_id;
             $input_log['mail_id'] = $request->mail_id;
+
+            $notification = $user->notifications()->where('data->mail->id', $request->mail_id)->first();
         } else if($request->type == 'incoming_disposition') {
             $incoming_disposition = IncomingDisposition::find($request->incoming_disposition_id);
             $incoming_disposition->update(['disposition' => 1]);
             $input['incoming_disposition_id'] = $request->incoming_disposition_id;
             $input_log['incoming_disposition_id'] = $request->incoming_disposition_id;
+
+            $notification = $user->notifications()->where('data->incoming_disposition->id', $request->incoming_disposition_id)->first();
         } else if($request->type == 'agenda') {
             Agenda::find($request->agenda_id)->update(['disposition' => 1]);
             $input['agenda_id'] = $request->agenda_id;
             $input['confirmation'] = $request->confirmation;
             $input_log['agenda_id'] = $request->agenda_id;
+
+            $notification = $user->notifications()->where('data->agenda->id', $request->agenda_id)->first();
         }
-        $input['sender_id'] = $request->user()->id;
+        $input['sender_id'] = $user->id;
         $mail_disposition = MailDisposition::create($input);
+
+        // update notification
+        if(!empty($notification)) {
+            $notification->update([ 'read_at' => now()]);
+        }
         
         // update log
-        $user = $request->user();
         $input_log['user_id'] = $user->id;
         $input_log['log'] = 'disposition_'.$request->type;
         $input_log['type'] = $request->type;
