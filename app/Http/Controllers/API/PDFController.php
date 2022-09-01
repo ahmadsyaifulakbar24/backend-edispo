@@ -7,18 +7,17 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\UserGroup;
 use App\Models\Param;
-use App\Models\User;
 use App\Models\MailDisposition;
 use App\Http\Resources\Param\ParamResource;
 use App\Http\Resources\User\UserGroupResource;
 use App\Http\Resources\MailDisposition\MailDispositionResource;
-use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use View;
 use App;
+use App\Helpers\PDFHelpers;
 use Carbon\Carbon;
-use Webklex\PDFMerger\Facades\PDFMergerFacade as PDFMerger;
+use Laraben\PDFMerger\Facades\PDFMergerFacade as PDFMerger;
 
 class PDFController extends Controller
 {
@@ -88,9 +87,9 @@ class PDFController extends Controller
         // merge pdf
         $pdfmerger = PDFMerger::init();
         $file1 = public_path($file_path1);
-        $file2 = public_path($file_path2);
+        $file2 = PDFHelpers::convertPDFVersion(public_path($file_path2), 'disposition_download');
         
-        $pdfmerger->addPDF($file1, 'all');
+        $pdfmerger->addPDF($file1, 'all', 'P');
         $pdfmerger->addPDF($file2, 'all');
 
         $pdfmerger->merge();
