@@ -47,6 +47,11 @@ class GetMailDispositionController extends Controller
                     $sub_query->where('mail_number', 'like', '%'.$search.'%')
                         ->orWhere('regarding', 'like', '%'.$search.'%')
                         ->orWhere('origin', 'like', '%'.$search.'%');
+                })
+                ->orWhereHas('incoming_disposition', function($sub_query) use ($search) {
+                    $sub_query->where('mail_number', 'like', '%'.$search.'%')
+                        ->orWhere('regarding', 'like', '%'.$search.'%')
+                        ->orWhere('mail_origin', 'like', '%'.$search.'%');
                 });
             });
         }
