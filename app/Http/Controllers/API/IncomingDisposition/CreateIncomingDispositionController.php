@@ -7,8 +7,7 @@ use App\Helpers\FindSuperior;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\IncomingDisposition\IncomingDispositionDetailResource;
-use App\Models\IncomingDisposition;
-use App\Models\User;
+use App\Models\{IncomingDisposition, User, FcmToken};
 use App\Notifications\AddNewIncomingDisposition;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -93,7 +92,18 @@ class CreateIncomingDispositionController extends Controller
         if($user->role == 'assistant') {
             $parent_id = FindSuperior::superior($user);
             $parent = User::find($parent_id);
-            $parent->notify(new AddNewIncomingDisposition($incoming_disposition, $user, $parent));
+            // $parent->notify(new AddNewIncomingDisposition($incoming_disposition, $user, $parent));
+            $objectNotif = new AddNewIncomingDisposition($incoming_disposition, $user, $parent);
+            
+            $title = $this->notifTitle("D");
+            $body = $this->notifBody($user->name, $input['regarding']);
+            $to = FcmToken::where('user_id', $parent->id)->where('status', 1)->groupBy('token')->get();
+            if( $to->count() > 0 ){
+                foreach ($to as $k => $v) {
+                    $token[] = $v->token;
+                    $this->fcmNotif($objectNotif->toArray(null), $v->token, $title, $body);
+                }
+            }
         }
         
         return ResponseFormatter::success(new IncomingDispositionDetailResource($incoming_disposition), 'success get incoming disposition data');

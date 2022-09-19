@@ -7,8 +7,7 @@ use App\Helpers\FindSuperior;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Mail\MailDetailResource;
-use App\Models\Mail;
-use App\Models\User;
+use App\Models\{Mail, User, FcmToken};
 use App\Notifications\AddNewMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -96,12 +95,18 @@ class CreateMailController extends Controller
         if($user->role == 'assistant') {
             $parent_id = FindSuperior::superior($user);
             $parent = User::find($parent_id);
+            // $parent->notify(new AddNewMail($mail, $user, $parent));
             $objectNotif = new AddNewMail($mail, $user, $parent);
 
             $title = $this->notifTitle($input['mail_category_code']);
             $body = $this->notifBody($user->name, $input['regarding']);
-            // $parent->notify($objectNotif);
-            $this->fcmNotif($objectNotif->toArray(null), $title, $body);
+            $to = FcmToken::where('user_id', $parent->id)->where('status', 1)->groupBy('token')->get();
+            if( $to->count() > 0 ){
+                foreach ($to as $k => $v) {
+                    $token[] = $v->token;
+                    $this->fcmNotif($objectNotif->toArray(null), $v->token, $title, $body);
+                }
+            }
         }
         return ResponseFormatter::success(new MailDetailResource($mail), 'success create mail data');
     }

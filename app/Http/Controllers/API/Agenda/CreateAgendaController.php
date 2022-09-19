@@ -7,8 +7,7 @@ use App\Helpers\FindSuperior;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Agenda\AgendaDetailResource;
-use App\Models\Agenda;
-use App\Models\User;
+use App\Models\{Agenda, User, FcmToken};
 use App\Notifications\AddNewAgenda;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -48,7 +47,18 @@ class CreateAgendaController extends Controller
         if($user->role == 'assistant') {
             $parent_id = FindSuperior::superior($user);
             $parent = User::find($parent_id);
-            $parent->notify(new AddNewAgenda($agenda, $user, $parent));
+            // $parent->notify(new AddNewAgenda($agenda, $user, $parent));
+            $objectNotif = new AddNewAgenda($agenda, $user, $parent);
+            
+            $title = $this->notifTitle("U");
+            $body = $this->notifBody($user->name, $input['regarding']);
+            $to = FcmToken::where('user_id', $parent->id)->where('status', 1)->groupBy('token')->get();
+            if( $to->count() > 0 ){
+                foreach ($to as $k => $v) {
+                    $token[] = $v->token;
+                    $this->fcmNotif($objectNotif->toArray(null), $v->token, $title, $body);
+                }
+            }
         }
         return ResponseFormatter::success(new AgendaDetailResource($agenda), 'success create agenda data');
     }
