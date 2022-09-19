@@ -25,6 +25,7 @@ use App\Http\Controllers\API\Param\ParamController;
 use App\Http\Controllers\API\Report\ReportController;
 use App\Http\Controllers\API\User\AllUserController;
 use App\Http\Controllers\API\PDFController;
+use App\Http\Controllers\API\FcmController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -52,7 +53,7 @@ Route::get('login', function () {
 
 Route::post('/auth/login', LoginController::class);
 
-Route::middleware(['auth:api'])->group(function() {
+Route::middleware(['fcm_middleware', 'auth:api'])->group(function() {
     Route::prefix('auth')->group(function () {
         Route::delete('/logout', LogoutController::class);
         Route::get('/user', UserController::class);
@@ -116,4 +117,6 @@ Route::middleware(['auth:api'])->group(function() {
         Route::get('total_data', [ReportController::class, 'get_total_data']);
     });
     Route::get('pdf/{mail_disposition:id}', [PDFController::class, 'index']);
+
+    Route::post('fcm_update', [FcmController::class, 'index']);
 });

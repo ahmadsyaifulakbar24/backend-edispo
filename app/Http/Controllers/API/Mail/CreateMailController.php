@@ -96,7 +96,12 @@ class CreateMailController extends Controller
         if($user->role == 'assistant') {
             $parent_id = FindSuperior::superior($user);
             $parent = User::find($parent_id);
-            $parent->notify(new AddNewMail($mail, $user, $parent));
+            $objectNotif = new AddNewMail($mail, $user, $parent);
+
+            $title = $this->notifTitle($input['mail_category_code']);
+            $body = $this->notifBody($user->name, $input['regarding']);
+            // $parent->notify($objectNotif);
+            $this->fcmNotif($objectNotif->toArray(null), $title, $body);
         }
         return ResponseFormatter::success(new MailDetailResource($mail), 'success create mail data');
     }
