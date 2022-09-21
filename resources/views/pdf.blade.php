@@ -447,7 +447,7 @@
                                                 @elseif($data != null && $data->incoming_disposition != null)
                                                     {{ $date['day'][ date('w', strtotime($data->incoming_disposition->mail_date)) ] }}, {{date('d', strtotime($data->incoming_disposition->mail_date))}} {{ $date['month'][ (int)date('m', strtotime($data->incoming_disposition->mail_date)) ] }} {{date('Y', strtotime($data->incoming_disposition->mail_date))}}
                                                 @elseif($data != null && $data->agenda != null)
-                                                    {{ $date['day'][ date('w', strtotime($data->agenda->mail_date)) ] }}, {{date('d', strtotime($data->agenda->mail_date))}} {{ $date['month'][ (int)date('m', strtotime($data->agenda->mail_date)) ] }} {{date('Y', strtotime($data->agenda->mail_date))}}
+                                                    {{ $date['day'][ date('w', strtotime($data->agenda->agenda_date)) ] }}, {{date('d', strtotime($data->agenda->agenda_date))}} {{ $date['month'][ (int)date('m', strtotime($data->agenda->agenda_date)) ] }} {{date('Y', strtotime($data->agenda->agenda_date))}}
                                                 @endif
                                             </span>
                                         </td>
