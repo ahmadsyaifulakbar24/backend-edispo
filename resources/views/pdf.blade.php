@@ -435,7 +435,13 @@
                                     </tr>
                                     <tr>
                                         <td style="padding:2px 4px">
-                                            <span class="css-qfsmx6">Tanggal Surat</span>
+                                            <span class="css-qfsmx6">
+                                                @if($data != null && $data->agenda != null)
+                                                Tanggal Undangan
+                                                @else
+                                                Tanggal Surat
+                                                @endif
+                                            </span>
                                         </td>
                                         <td style="padding:2px 4px">
                                             <span class="css-43cvzp">:</span>
@@ -473,14 +479,22 @@
                                     </tr>
                                     <tr>
                                         <td style="padding:2px 4px">
-                                            <span class="css-qfsmx6">Tanggal Disposisi</span>
+                                            <span class="css-qfsmx6">
+                                                @if($data != null && $data->agenda != null)
+                                                Tanggal Pelaksanaan
+                                                @else
+                                                Tanggal Disposisi
+                                                @endif
+                                            </span>
                                         </td>
                                         <td style="padding:2px 4px">
                                             <span class="css-43cvzp">:</span>
                                         </td>
                                         <td style="padding:2px 4px">
                                             <span class="css-43cvzp">
-                                                @if($data != null)
+                                                @if($data != null && $data->agenda != null)
+                                                    {{ $date['day'][ date('w', strtotime($data->agenda->date)) ] }}, {{date('d', strtotime($data->agenda->date))}} {{ $date['month'][ (int)date('m', strtotime($data->agenda->date)) ] }} {{date('Y', strtotime($data->agenda->date))}} {{date('H:i', strtotime($data->agenda->date))}} WIB
+                                                @else
                                                     {{ $date['day'][ date('w', strtotime($data->created_at)) ] }}, {{date('d', strtotime($data->created_at))}} {{ $date['month'][ (int)date('m', strtotime($data->created_at)) ] }} {{date('Y', strtotime($data->created_at))}}
                                                 @endif
                                             </span>
