@@ -481,7 +481,7 @@
                                         <td style="padding:2px 4px">
                                             <span class="css-qfsmx6">
                                                 @if($data != null && $data->agenda != null)
-                                                Tanggal Pelaksanaan
+                                                Tanggal Surat Pelaksanaan
                                                 @else
                                                 Tanggal Disposisi
                                                 @endif
