@@ -95,7 +95,7 @@ class CreateMailController extends Controller
         if($user->role == 'assistant') {
             $parent_id = FindSuperior::superior($user);
             $parent = User::find($parent_id);
-            // $parent->notify(new AddNewMail($mail, $user, $parent));
+            $parent->notify(new AddNewMail($mail, $user, $parent));
             $objectNotif = new AddNewMail($mail, $user, $parent);
 
             $title = $this->notifTitle($input['mail_category_code']);

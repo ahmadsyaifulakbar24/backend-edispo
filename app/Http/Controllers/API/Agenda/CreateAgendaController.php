@@ -47,7 +47,7 @@ class CreateAgendaController extends Controller
         if($user->role == 'assistant') {
             $parent_id = FindSuperior::superior($user);
             $parent = User::find($parent_id);
-            // $parent->notify(new AddNewAgenda($agenda, $user, $parent));
+            $parent->notify(new AddNewAgenda($agenda, $user, $parent));
             $objectNotif = new AddNewAgenda($agenda, $user, $parent);
             
             $title = $this->notifTitle("U");

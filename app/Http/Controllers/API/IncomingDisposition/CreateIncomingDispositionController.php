@@ -92,7 +92,7 @@ class CreateIncomingDispositionController extends Controller
         if($user->role == 'assistant') {
             $parent_id = FindSuperior::superior($user);
             $parent = User::find($parent_id);
-            // $parent->notify(new AddNewIncomingDisposition($incoming_disposition, $user, $parent));
+            $parent->notify(new AddNewIncomingDisposition($incoming_disposition, $user, $parent));
             $objectNotif = new AddNewIncomingDisposition($incoming_disposition, $user, $parent);
             
             $title = $this->notifTitle("D");
