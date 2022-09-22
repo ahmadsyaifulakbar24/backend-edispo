@@ -49,7 +49,6 @@ class Controller extends BaseController
 
         $response = curl_exec($curl);
         Log::info("response fcm:");
-        curl_close($curl);
         if (curl_errno($curl)) {
             $error_msg = curl_error($curl);
             Log::error($error_msg);
@@ -57,6 +56,7 @@ class Controller extends BaseController
             Log::info($response);
         }
         Log::info('=============================================');
+        curl_close($curl);
         return $response;
     }
 
