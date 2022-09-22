@@ -52,7 +52,7 @@ class CreateAgendaController extends Controller
             
             $title = $this->notifTitle("U");
             $body = $this->notifBody($user->name, $input['regarding']);
-            $to = FcmToken::where('user_id', $parent->id)->where('status', 1)->groupBy('token')->get();
+            $to = FcmToken::select("token")->where('user_id', $parent->id)->where('status', 1)->groupBy('token')->get();
             if( $to->count() > 0 ){
                 foreach ($to as $k => $v) {
                     $token[] = $v->token;
