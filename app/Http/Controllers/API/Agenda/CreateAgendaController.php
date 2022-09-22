@@ -48,17 +48,6 @@ class CreateAgendaController extends Controller
             $parent_id = FindSuperior::superior($user);
             $parent = User::find($parent_id);
             $parent->notify(new AddNewAgenda($agenda, $user, $parent));
-            $objectNotif = new AddNewAgenda($agenda, $user, $parent);
-            
-            $title = $this->notifTitle("U");
-            $body = $this->notifBody($user->name, $input['regarding']);
-            $to = FcmToken::select("token")->where('user_id', $parent->id)->where('status', 1)->groupBy('token')->get();
-            if( $to->count() > 0 ){
-                foreach ($to as $k => $v) {
-                    $token[] = $v->token;
-                    $this->fcmNotif($objectNotif->toArray(null), $v->token, $title, $body);
-                }
-            }
         }
         return ResponseFormatter::success(new AgendaDetailResource($agenda), 'success create agenda data');
     }

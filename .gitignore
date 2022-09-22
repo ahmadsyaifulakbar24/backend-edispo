@@ -4,6 +4,7 @@
 /public/disposition_download/
 !/public/disposition_download/*.gitkeep
 /storage/*.key
+/storage/firebase-adminsdk.json
 /vendor
 .env
 .env.backup

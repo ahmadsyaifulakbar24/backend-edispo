@@ -9,6 +9,15 @@ use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
+use NotificationChannels\Fcm\FcmChannel;
+use NotificationChannels\Fcm\FcmMessage;
+use NotificationChannels\Fcm\Resources\AndroidConfig;
+use NotificationChannels\Fcm\Resources\AndroidFcmOptions;
+use NotificationChannels\Fcm\Resources\AndroidNotification;
+use NotificationChannels\Fcm\Resources\ApnsConfig;
+use NotificationChannels\Fcm\Resources\ApnsFcmOptions;
+use App\Helpers\NotificationHelper;
+
 class AddNewIncomingDisposition extends Notification implements ShouldQueue
 {
     use Queueable;
@@ -36,7 +45,19 @@ class AddNewIncomingDisposition extends Notification implements ShouldQueue
     public function via($notifiable)
     {
         // return ['mail'];
-        return ['database', 'broadcast'];
+        return ['database', 'broadcast', FcmChannel::class];
+    }
+
+    public function toFcm($notifiable)
+    {
+        $data = $this->toArray($notifiable);
+        $data['id'] = $this->id;
+        return FcmMessage::create()
+            ->setData(["message" => json_encode($data)])
+            ->setNotification(\NotificationChannels\Fcm\Resources\Notification::create()
+                ->setTitle(NotificationHelper::notifTitle("D"))
+                ->setBody(NotificationHelper::notifBody($this->from->name, $this->incoming_disposition->regarding))
+            );
     }
 
     /**

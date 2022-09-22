@@ -14,15 +14,6 @@ use Illuminate\Support\Facades\DB;
 
 class GetMailController extends Controller
 {
-    // function get(){
-    //     $to = "cKKnlgHKQCm4Wfv69rCMQF:APA91bGZ7pbXnEcaxqdN1poavEnJa41DeAzTP6aLBIDCNo_nRkbkFs1PogqlbjmEm5aYJP1yrJVgDzs1D5gz1CjTHJo5maFHIQrxi-Xkt8ivICrytj-OjPzuruKkaXEvFdOQfz8FQfav";
-    //     $title = "From localhost";
-    //     $body = "Ini pesan dari localhost";
-    //     $object = [
-    //         "nama"=> "cepat",
-    //     ];
-    //     $this->fcmNotif(json_encode($object), $to, $title, $body);
-    // }
 
     public function get (Request $request)
     {

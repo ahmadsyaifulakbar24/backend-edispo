@@ -93,17 +93,6 @@ class CreateIncomingDispositionController extends Controller
             $parent_id = FindSuperior::superior($user);
             $parent = User::find($parent_id);
             $parent->notify(new AddNewIncomingDisposition($incoming_disposition, $user, $parent));
-            $objectNotif = new AddNewIncomingDisposition($incoming_disposition, $user, $parent);
-            
-            $title = $this->notifTitle("D");
-            $body = $this->notifBody($user->name, $input['regarding']);
-            $to = FcmToken::select("token")->where('user_id', $parent->id)->where('status', 1)->groupBy('token')->get();
-            if( $to->count() > 0 ){
-                foreach ($to as $k => $v) {
-                    $token[] = $v->token;
-                    $this->fcmNotif($objectNotif->toArray(null), $v->token, $title, $body);
-                }
-            }
         }
         
         return ResponseFormatter::success(new IncomingDispositionDetailResource($incoming_disposition), 'success get incoming disposition data');

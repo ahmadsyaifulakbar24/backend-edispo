@@ -78,4 +78,34 @@ class User extends Authenticatable
     {
         return !empty($this->attributes['photo']) ? url('') . Storage::url($this->attributes['photo']) : null;
     }
+
+    public function routeNotificationForFcm()
+    {
+        $data = FcmToken::where('user_id', $this->id)->where('status', 1)->select('token')->get();
+        if($data->count() > 0){
+            $token = [];
+            foreach ($data as $k => $v) {
+                $token[] = $v->token;
+            }
+            return $token;
+        }
+        return "";
+        // return $this->getDeviceTokens();
+        // return $this->hasMany(FcmToken::class, 'user_id')->select('token as fcm_token');
+        // $data = $this->hasMany(FcmToken::class, 'user_id')->select('token');
+        // dd($this->id);
+        // dd($data->count());
+        // if($data->count() > 0){
+        //     $token = [];
+        //     foreach ($data as $k => $v) {
+        //         dd($v);
+        //         $token[] = $v->token;
+        //     }
+        //     dd($token);
+        //     return $token;
+        // }
+        // return "";
+        // return $this->fcm_token;
+        // return 'fjshowj7S0mkk_ihH13P7C:APA91bG526z7ic91JEoT_VN6rCnPyAmcySxcAfcqNzrilzkTLdJQMkBol92nYDXoRYljDetUc67GLPCSsFR7EX3_36eTHQVGhwzvmo-RvnF_tZHvpdkmtghaTzGR2HJ1UXNKumiEz03O';
+    }
 }
