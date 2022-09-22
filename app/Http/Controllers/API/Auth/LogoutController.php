@@ -13,7 +13,7 @@ class LogoutController extends Controller
     {
         $token = $request->user()->token();
         $oauthId = $token->id;
-        FcmToken::where("oauth_id", $oauthId)->update(["status" => '0']);
+        FcmToken::where("oauth_id", $oauthId)->update(["status" => 0]);
         $revoke = $token->revoke();
         return ResponseFormatter::success($revoke, 'Token Revoked');
     }
