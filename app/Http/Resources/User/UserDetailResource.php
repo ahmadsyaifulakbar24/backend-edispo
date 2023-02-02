@@ -21,6 +21,7 @@ class UserDetailResource extends JsonResource
             'username' => $this->username,
             'email' => $this->email,
             'nip' => $this->nip,
+            'nik' => $this->nik,
             'gender' => $this->gender,
             'phone_number' => $this->phone_number,
             'position' => $this->position,
