@@ -102,6 +102,8 @@ Route::middleware(['fcm_middleware', 'auth:api'])->group(function() {
     
     Route::prefix('user')->group(function() {
         Route::get('/disposition', [AllUserController::class, 'disposition']);
+        Route::get('/{user:id}', [AllUserController::class, 'show']);
+        Route::put('/{user:id}', [AllUserController::class, 'update']);
         Route::post('/reset_password', [AllUserController::class, 'reset_password']);
         Route::get('/notification', [NotificationController::class, 'get_all']);
         Route::get('/notification/read/{notification_id}', [NotificationController::class, 'read']);

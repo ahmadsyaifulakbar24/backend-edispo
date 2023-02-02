@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\API\User;
 
+use App\Helpers\FileHelpers;
 use App\Helpers\FindSuperior;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\User\UserDetailResource;
 use App\Http\Resources\User\UserGroupResource;
 use App\Http\Resources\User\UserResource;
 use App\Models\User;
@@ -22,6 +24,40 @@ class AllUserController extends Controller
         $user_group = UserGroup::userDetail()->where('parent_id', $user_id)->orderBy('order', 'asc')->get();
 
         return ResponseFormatter::success(UserGroupResource::collection($user_group), 'success get user disposition data');
+    }
+
+    public function show(User $user) {
+        return ResponseFormatter::success(new UserDetailResource($user), 'success get user detail data');
+    }
+
+    public function update(Request $request, User $user)
+    {
+        $request->validate([
+            'name' => ['required', 'string'],
+            'email' => ['nullable', 'email'],
+            'nip' => ['nullable', 'string'],
+            'gender' => ['nullable', 'in:laki-laki,perempuan'],
+            'phone_number' => ['nullable', 'numeric'],
+            'position_name' => ['nullable', 'string'],
+            'photo' => ['nullable', 'image'],
+        ]);
+
+        $input = $request->only([
+            'name',
+            'email',
+            'nip',
+            'gender',
+            'phone_number',
+            'position_name',
+        ]);
+
+        if($request->photo) {
+            $input['photo'] = FileHelpers::upload_file('profile', $request->photo);
+        }
+
+        $user->update($input);
+
+        return ResponseFormatter::success(new UserDetailResource($user), 'success update user data');
     }
 
     public function reset_password(Request $request)
