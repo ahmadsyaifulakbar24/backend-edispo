@@ -9,6 +9,10 @@ use App\Http\Controllers\API\Agenda\UpdateAgendaController;
 use App\Http\Controllers\API\Auth\LoginController;
 use App\Http\Controllers\API\Auth\LogoutController;
 use App\Http\Controllers\API\Auth\UserController;
+use App\Http\Controllers\API\DigitalSign\CreateDigitalSignController;
+use App\Http\Controllers\API\DigitalSign\DeleteDigitalSignController;
+use App\Http\Controllers\API\DigitalSign\GetDigitalSignController;
+use App\Http\Controllers\API\DigitalSign\UpdateDigitalSignController;
 use App\Http\Controllers\API\IncomingDisposition\CreateIncomingDispositionController;
 use App\Http\Controllers\API\IncomingDisposition\DeleteIncomingDispositionController;
 use App\Http\Controllers\API\IncomingDisposition\GetIncomingDispositionController;
@@ -121,4 +125,12 @@ Route::middleware(['fcm_middleware', 'auth:api'])->group(function() {
     Route::get('pdf/{mail_disposition:id}', [PDFController::class, 'index']);
 
     Route::post('fcm_update', [FcmController::class, 'index']);
+
+    Route::prefix('digital_sign')->group(function() {
+        Route::get('/', [GetDigitalSignController::class, 'index']);
+        Route::post('/', CreateDigitalSignController::class);
+        Route::get('/{digital_sign:id}', [GetDigitalSignController::class, 'show']);
+        Route::put('/{digital_sign:id}', UpdateDigitalSignController::class);
+        Route::delete('/{digital_sign:id}', DeleteDigitalSignController::class);
+    });
 });

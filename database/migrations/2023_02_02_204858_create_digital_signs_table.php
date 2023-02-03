@@ -15,10 +15,13 @@ class CreateDigitalSignsTable extends Migration
     {
         Schema::create('digital_signs', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->foreignUuid('user_id')->constrained('users')->onUpdate('cascade');
             $table->string('mail_number');
             $table->string('purpose');
             $table->string('regarding');
             $table->date('sign_date');
+            $table->string('file');
+            $table->boolean('valid')->default(0);
             $table->timestamps();
         });
     }

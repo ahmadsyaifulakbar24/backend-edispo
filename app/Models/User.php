@@ -80,6 +80,10 @@ class User extends Authenticatable
         return !empty($this->attributes['photo']) ? url('') . Storage::url($this->attributes['photo']) : null;
     }
 
+    public function digitl_sign()
+    {
+        return $this->hasMany(DigitalSign::class, 'user_id');
+    }
     public function routeNotificationForFcm()
     {
         $data = FcmToken::where('user_id', $this->id)->where('status', 1)->select('token')->get();
