@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\DigitalSign;
 
 use App\Helpers\FileHelpers;
+use App\Helpers\FindSuperior;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DigitalSign\DigitalSignResource;
@@ -26,7 +27,9 @@ class CreateDigitalSignController extends Controller
         ]);
 
         $user = $request->user();
-        $input['user_id'] = $user->id;
+        $user_id = FindSuperior::superior($user);
+        $input['user_id'] = $user_id;
+        
         $input['file'] = FileHelpers::upload_file('script', $request->file);
 
         $digital_sign = DigitalSign::create($input);
