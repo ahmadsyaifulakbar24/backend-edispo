@@ -308,11 +308,14 @@
                             <p class="css-1pb8r2m">KEMENTERIAN KOPERASI DAN UKM <br>REPUBLIK INDONESIA </p>
                             <?php
                                 if(!empty($data->mail)) {
-                                    $position_name = $data->mail->user->position_name;
+                                    $mail_created_at = $data->mail->created_at;
+                                    $position_name = $data->mail->user->current_user_position($mail_created_at)->first()->position_name;
                                 } else if($data->agenda) {
-                                    $position_name = $data->agenda->user->position_name;
+                                    $agenda_created_at = $data->agenda->created_at;
+                                    $position_name = $data->agenda->user->current_user_position($agenda_created_at)->position_name;
                                 } else if($data->incoming_disposition) {
-                                    $position_name = $data->incoming_disposition->user->position_name;
+                                    $incoming_disposition_created_at = $data->incoming_disposition->created_at;
+                                    $position_name = $data->incoming_disposition->user->current_user_position($incoming_disposition_created_at)->position_name;
                                 } else {
                                     $position_name = 'Tidak Ada';
                                 }

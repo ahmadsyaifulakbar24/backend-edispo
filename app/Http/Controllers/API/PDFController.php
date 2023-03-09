@@ -28,6 +28,7 @@ class PDFController extends Controller
 
     function index(Request $request, $id){
         $mailDisposition = $this->mail_disposition($id);
+
         if(empty($mailDisposition)) {
             return ResponseFormatter::error([
                 'message' => 'data not foud'
