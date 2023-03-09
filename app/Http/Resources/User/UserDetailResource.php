@@ -15,9 +15,10 @@ class UserDetailResource extends JsonResource
      */
     public function toArray($request)
     {
+        $curent_user_position = $this->current_user_position()->first();
         return [
             'id' => ($this->role == 'assistant') ? $this->user_group()->first()->parent_id : $this->id ,
-            'name' => $this->name,
+            'name' => !empty($curent_user_position) ? $curent_user_position->name : null,
             'username' => $this->username,
             'email' => $this->email,
             'nip' => $this->nip,
@@ -25,7 +26,7 @@ class UserDetailResource extends JsonResource
             'gender' => $this->gender,
             'phone_number' => $this->phone_number,
             'position' => $this->position,
-            'position_name' => $this->position_name,
+            'position_name' => !empty($curent_user_position) ? $curent_user_position->position_name : null,
             'role' => $this->role,
             'photo_url' => $this->photo_url,
             'created_at' => $this->created_at,

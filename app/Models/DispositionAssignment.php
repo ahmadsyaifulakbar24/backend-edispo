@@ -27,7 +27,7 @@ class DispositionAssignment extends Model
         return Carbon::parse($date)->format('Y-m-d H:i:s');
     }
 
-    public function receiver ()
+    public function receiver()
     {
         return $this->belongsTo(User::class, 'receiver_id');
     }

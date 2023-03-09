@@ -41,7 +41,7 @@ class PDFController extends Controller
         $logo = 'data:image/' . $type . ';base64,' . base64_encode($data);
         $data = [
             'img' => $logo,
-            'user_disposition' => $this->user_disposition($request),
+            'user_disposition' => $this->user_disposition($request, $mailDisposition->created_at),
             'param' => [
                 'instruction' => $this->param($request, 'instruction'),
                 'security' => $this->param($request, 'mail_security'),
@@ -99,9 +99,13 @@ class PDFController extends Controller
         return response()->download($download_path);
     }
 
-    private function user_disposition(Request $request){
+    private function user_disposition(Request $request, $mail_disposition_date = null){
         $user = $request->user();
-        // $user = User::find('869cfbc4-105e-4c58-8b46-98d138968a94');
+        
+        $request->request->add([
+            'date' => $mail_disposition_date
+        ]);
+
         $user_id = ($user->role == 'assistant') ? $user->user_group()->first()->parent_id : $user->id;
         $user_group = UserGroup::userDetail()->where('parent_id', $user_id)->orderBy('order', 'asc')->get();
         return UserGroupResource::collection($user_group);

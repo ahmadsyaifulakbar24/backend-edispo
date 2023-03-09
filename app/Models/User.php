@@ -6,6 +6,7 @@ use App\Traits\Uuids;
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -30,7 +31,7 @@ class User extends Authenticatable
         'gender',
         'phone_number',
         'position',
-        'position_name',
+        // 'position_name',
         'role',
         'photo',
         'active',
@@ -59,7 +60,7 @@ class User extends Authenticatable
     ];
     
     protected $appends = [
-        'photo_url'
+        'photo_url',
     ];
 
     public function getCreatedAtAttribute($date) {
@@ -112,5 +113,20 @@ class User extends Authenticatable
         // return "";
         // return $this->fcm_token;
         // return 'fjshowj7S0mkk_ihH13P7C:APA91bG526z7ic91JEoT_VN6rCnPyAmcySxcAfcqNzrilzkTLdJQMkBol92nYDXoRYljDetUc67GLPCSsFR7EX3_36eTHQVGhwzvmo-RvnF_tZHvpdkmtghaTzGR2HJ1UXNKumiEz03O';
+    }
+
+    public function user_position()
+    {
+        
+        return $this->hasMany(UserPosition::class, 'user_id');
+        
+    }
+
+    public function scopeCurrent_user_position($query, $date = '') {
+        $now = empty($date) ? Carbon::now() : Carbon::parse($date);
+
+        return $this->user_position()
+        ->whereDate('start_date', '<=', $now)
+        ->whereDate('end_date', '>=', $now);
     }
 }

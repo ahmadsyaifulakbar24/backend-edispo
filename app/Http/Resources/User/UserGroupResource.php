@@ -14,10 +14,15 @@ class UserGroupResource extends JsonResource
      */
     public function toArray($request)
     {
+        if(!empty($request->date)) {
+            $curent_user_position = $this->user->current_user_position($request->date)->first();
+        } else {
+            $curent_user_position = $this->user->current_user_position()->first();
+        }
         return [
             'id' => $this->user->id,
-            'name' => $this->user->name,
-            'position_name' => $this->user->position_name,
+            'name' => !(empty($curent_user_position)) ? $curent_user_position->name : null,
+            'position_name' => !(empty($curent_user_position)) ? $curent_user_position->position_name : null,
             'photo_url' => $this->user->photo_url,
         ];
     }

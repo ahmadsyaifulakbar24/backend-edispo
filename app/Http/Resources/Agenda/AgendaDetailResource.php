@@ -15,9 +15,25 @@ class AgendaDetailResource extends JsonResource
      */
     public function toArray($request)
     {
+        $curent_user_position = $this->user->current_user_position($this->updated_at)->first();
         return [
             'id' => $this->id,
-            'user' => new UserDetailResource($this->user),
+            'user' => [
+                'id' => ($this->user->role == 'assistant') ? $this->user->user_group()->first()->parent_id : $this->user->id ,
+                'name' => !empty($curent_user_position) ? $curent_user_position->name : null,
+                'username' => $this->user->username,
+                'email' => $this->user->email,
+                'nip' => $this->user->nip,
+                'nik' => $this->user->nik,
+                'gender' => $this->user->gender,
+                'phone_number' => $this->user->phone_number,
+                'position' => $this->user->position,
+                'position_name' => !empty($curent_user_position) ? $curent_user_position->position_name : null,
+                'role' => $this->user->role,
+                'photo_url' => $this->user->photo_url,
+                'created_at' => $this->user->created_at,
+                'updated_at' => $this->user->updated_at,
+            ],
             'agenda_number' => sprintf('%04s', $this->agenda_number).'-UND',
             'mail_number' => $this->mail_number,
             'origin' => $this->origin,

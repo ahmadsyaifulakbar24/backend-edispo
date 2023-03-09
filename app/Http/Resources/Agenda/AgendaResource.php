@@ -15,12 +15,14 @@ class AgendaResource extends JsonResource
      */
     public function toArray($request)
     {
+        $curent_user_position = $this->user->current_user_position($this->updated_at)->first();
+
         return [
             'id' => $this->id,
             'user' => [
                 'id' => $this->user->id,
-                'name' => $this->user->name,
-                'position_name' => $this->user->position_name,
+                'name' => !empty($curent_user_position) ? $curent_user_position->name : null,
+                'position_name' => !empty($curent_user_position) ? $curent_user_position->position_name : null,
             ],
             'agenda_number' => sprintf('%04s', $this->agenda_number).'-UND',
             'mail_number' => $this->mail_number,
